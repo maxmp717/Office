@@ -24,7 +24,7 @@ import MDInput from "components/MDInput";
 // Material Dashboard 2 React example components
 import Breadcrumbs from "examples/Breadcrumbs";
 import NotificationItem from "examples/Items/NotificationItem";
-
+import fav1 from "assets/images/fav-1.png";
 // Custom styles for DashboardNavbar
 import {
   navbar,
@@ -106,6 +106,7 @@ function DashboardNavbar({ absolute, light, isMini }) {
   );
 
   // Styles for the navbar icons
+  // eslint-disable-next-line no-unused-vars
   const iconsStyle = ({ palette: { dark, white, text }, functions: { rgba } }) => ({
     color: () => {
       let colorValue = light || darkMode ? white.main : dark.main;
@@ -169,7 +170,8 @@ function DashboardNavbar({ absolute, light, isMini }) {
                 variant="contained"
                 onClick={handleOpenMenu}
               >
-                <Icon sx={iconsStyle}>account_circle</Icon>
+                <MDBox component="img" src={fav1} alt="Thankyou" width="40%" />
+                {/* <Icon sx={iconsStyle}>account_circle</Icon> */}
               </IconButton>
               {renderMenu()}
             </MDBox>

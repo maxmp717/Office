@@ -21,7 +21,7 @@ import React, { useState } from "react";
 import "react-datepicker/dist/react-datepicker.css";
 // import MDInputRoot from "components/MDInput/MDInputRoot";
 
-function PaymentMethod() {
+function Report() {
   // const [controller] = useMaterialUIController();
   // const { darkMode } = controller;
   const [startDate, setStartDate] = useState(new Date());
@@ -135,4 +135,4 @@ function PaymentMethod() {
   );
 }
 
-export default PaymentMethod;
+export default Report;

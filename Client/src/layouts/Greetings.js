@@ -36,6 +36,9 @@ function Greetings() {
   } else if (hours >= 12 && hours < 17) {
     greet = "afternoon";
     styles.color = "#04733F";
+  } else if (hours >= 17 && hours < 20) {
+    greet = "evening";
+    styles.color = "#04756F";
   } else {
     greet = "night";
     styles.color = "#04756F";
@@ -43,13 +46,13 @@ function Greetings() {
 
   return (
     <Card lg={{ pb: "20px", height: "100%" }}>
-      <MDBox pt={3} px={2}>
+      <MDBox pt={3} px={2} mb={8}>
         <MDBox
           display="flex"
           flexDirection="row"
           // flexDirection="column"
           alignItems="center"
-          justifyContent="space-evenly"
+          justifyContent="space-between"
         >
           <MDTypography variant="h2" fontWeight="bold" color="info" textTransform="capitalize">
             <div>Good {greet} Shankar</div>

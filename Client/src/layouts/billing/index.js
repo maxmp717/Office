@@ -28,7 +28,7 @@ import Footer from "examples/Footer";
 // import DefaultInfoCard from "examples/Cards/InfoCards/DefaultInfoCard";
 
 // // Billing page components
-import PaymentMethod from "layouts/billing/components/PaymentMethod";
+import Report from "layouts/billing/components/Report";
 // import Invoices from "layouts/billing/components/Invoices";
 // import BillingInformation from "layouts/billing/components/BillingInformation";
 // import Transactions from "layouts/billing/components/Transactions";
@@ -36,7 +36,7 @@ import PaymentMethod from "layouts/billing/components/PaymentMethod";
 function Billing() {
   return (
     <DashboardLayout>
-      <DashboardNavbar absolute isMini />
+      <DashboardNavbar />
       {/* <MDBox mt={8}>
         <MDBox mb={3}>
           <Grid container spacing={3}>
@@ -82,8 +82,8 @@ function Billing() {
           </Grid>
         </MDBox>
       </MDBox> */}
-      <Grid item xs={12} mt={10}>
-        <PaymentMethod />
+      <Grid item xs={12} mt={1} mb={40}>
+        <Report />
       </Grid>
       <Footer />
     </DashboardLayout>
