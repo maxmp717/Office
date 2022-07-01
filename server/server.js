@@ -34,6 +34,11 @@ app.use(bodyParser.json())
 app.use(passport.initialize());
 
 // For Routing Purpose
+import User from './routes/user.js'
+// For Routers
+app.use('/user',User);
+
+
 
 app.use(express.static(path.join(__dirname ,  'client/build')))
 app.get("*", (req, res) => {
