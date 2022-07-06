@@ -58,12 +58,12 @@ function Greetings() {
             <div>Good {greet} Shankar</div>
           </MDTypography>
           <MDBox display="flex" flexDirection="row" alignItems="center" justifyContent="flex-end">
-            <MDBox variant="h4" color="text" mr={0.5} lineHeight={0}>
+            <MDBox color="text" mr={0.5} lineHeight={0}>
               <Icon color="Warning" fontSize="large">
                 schedule
               </Icon>
             </MDBox>
-            <MDTypography variant="h3" color="Warning" fontWeight="regular">
+            <MDTypography color="Warning" fontWeight="regular">
               <div> {today.format("LT")}</div>
             </MDTypography>
           </MDBox>

@@ -167,11 +167,11 @@ function Sidenav({ color, brand, brandName, routes, ...rest }) {
       {/* <MDBox p={2} mt="auto">
         <MDButton
           component="a"
-          href="https://www.creative-tim.com/product/material-dashboard-pro-react"
+          href=""
           target="_blank"
           rel="noreferrer"
           variant="gradient"
-          color={sidenavColor}
+          // color={}
           fullWidth
         >
           upgrade to pro
@@ -191,7 +191,8 @@ Sidenav.defaultProps = {
 Sidenav.propTypes = {
   color: PropTypes.oneOf(["primary", "secondary", "info", "success", "warning", "error", "dark"]),
   brand: PropTypes.string,
-  brandName: PropTypes.string.isRequired,
+  // eslint-disable-next-line react/require-default-props
+  brandName: PropTypes.string,
   routes: PropTypes.arrayOf(PropTypes.object).isRequired,
 };
 

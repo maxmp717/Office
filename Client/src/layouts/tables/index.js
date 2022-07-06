@@ -10,7 +10,7 @@ import ComplexStatisticsCard from "examples/Cards/StatisticsCards/ComplexStatist
 // Material Dashboard 2 React example components
 import DashboardLayout from "examples/LayoutContainers/DashboardLayout";
 import DashboardNavbar from "examples/Navbars/DashboardNavbar";
-// import Footer from "examples/Footer";
+import Footer from "examples/Footer";
 // import DataTable from "examples/Tables/DataTable";
 
 import Fileupload from "layouts/tables/Fileupload";
@@ -19,8 +19,21 @@ import Fileupload from "layouts/tables/Fileupload";
 // import projectsTableData from "layouts/tables/data/projectsTableData";
 
 function Tables() {
+  // const {totaltime,activetime,overalltime } = projectsTableData();
   // const { columns, rows } = authorsTableData();
   // const { columns: pColumns, rows: pRows } = projectsTableData();
+  const totaltime = (event) => {
+    const emailValue = event.target.value;
+    console.log(emailValue);
+  };
+  const activetime = (event) => {
+    const emailValue = event.target.value;
+    console.log(emailValue);
+  };
+  const overalltime = (event) => {
+    const emailValue = event.target.value;
+    console.log(emailValue);
+  };
 
   return (
     <DashboardLayout>
@@ -33,7 +46,7 @@ function Tables() {
                 color="warning"
                 icon="work_history"
                 title="Total Time"
-                count="1hr : 20 min"
+                count={totaltime}
                 percentage={{
                   color: "success",
                   // amount: "+55%",
@@ -47,7 +60,7 @@ function Tables() {
               <ComplexStatisticsCard
                 icon="more_time"
                 title="Active Time"
-                count="0hr : 50 min"
+                count={activetime}
                 percentage={{
                   color: "success",
                   // amount: "+3%",
@@ -62,7 +75,7 @@ function Tables() {
                 color="success"
                 icon="pending_actions"
                 title="Over AllTime"
-                count="0hr : 50 min"
+                count={overalltime}
                 percentage={{
                   color: "success",
                   // amount: "+1%",
@@ -84,7 +97,7 @@ function Tables() {
           </Grid>
         </MDBox>
       </MDBox>
-      {/* <Footer /> */}
+      <Footer />
     </DashboardLayout>
   );
 }

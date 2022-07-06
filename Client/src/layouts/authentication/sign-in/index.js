@@ -1,3 +1,4 @@
+/* eslint-disable no-console */
 import { useState } from "react";
 
 // react-router-dom components
@@ -28,8 +29,30 @@ import bgImage from "assets/images/bg-sign-in-basic.jpeg";
 
 function Basic() {
   const [rememberMe, setRememberMe] = useState(false);
+  const [log, setLog] = useState({ email: "", password: "" });
 
   const handleSetRememberMe = () => setRememberMe(!rememberMe);
+
+  // check email
+  const getemailValue = (event) => {
+    const emailValue = event.target.value;
+    setLog({ email: emailValue });
+    // console.log(emailValue);
+  };
+  const getpasswordValue = (event) => {
+    const passwordValue = event.target.value;
+    setLog({ password: passwordValue });
+    // console.log(passwordValue);
+  };
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    const userData = {
+      email: log.email,
+      password: log.password,
+    };
+    console.log(userData);
+    // ... submit to API or something
+  };
 
   return (
     <BasicLayout image={bgImage}>
@@ -45,7 +68,14 @@ function Basic() {
           mb={1}
           textAlign="center"
         >
-          <MDTypography variant="h4" fontWeight="medium" color="white" mt={1}>
+          <MDTypography
+            variant="h4"
+            fontWeight="medium"
+            color="white"
+            mt={1}
+            component={Link}
+            to="/dashboard"
+          >
             Sign in
           </MDTypography>
           {/* <Grid container spacing={3} justifyContent="center" sx={{ mt: 1, mb: 2 }}>
@@ -66,13 +96,26 @@ function Basic() {
             </Grid>
           </Grid> */}
         </MDBox>
+
         <MDBox pt={4} pb={3} px={3}>
-          <MDBox component="form" role="form">
+          <MDBox component="form" role="form" onSubmit={handleSubmit}>
             <MDBox mb={2}>
-              <MDInput type="email" label="Email" fullWidth />
+              <MDInput
+                type="email"
+                label="Email"
+                value={log.email}
+                fullWidth
+                onChange={getemailValue}
+              />
             </MDBox>
             <MDBox mb={2}>
-              <MDInput type="password" label="Password" fullWidth />
+              <MDInput
+                type="password"
+                label="Password"
+                value={log.password}
+                fullWidth
+                onChange={getpasswordValue}
+              />
             </MDBox>
             <MDBox display="flex" alignItems="center" ml={-1}>
               <Switch checked={rememberMe} onChange={handleSetRememberMe} />
@@ -87,7 +130,7 @@ function Basic() {
               </MDTypography>
             </MDBox>
             <MDBox mt={4} mb={1}>
-              <MDButton variant="gradient" color="info" fullWidth>
+              <MDButton variant="gradient" type="submit" color="info" fullWidth>
                 sign in
               </MDButton>
             </MDBox>
