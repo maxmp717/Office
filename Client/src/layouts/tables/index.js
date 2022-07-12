@@ -13,28 +13,8 @@ import DashboardNavbar from "examples/Navbars/DashboardNavbar";
 import Footer from "examples/Footer";
 // import DataTable from "examples/Tables/DataTable";
 
-import Fileupload from "layouts/tables/Fileupload";
-// Data
-// import authorsTableData from "layouts/tables/data/authorsTableData";
-// import projectsTableData from "layouts/tables/data/projectsTableData";
 
 function Tables() {
-  // const {totaltime,activetime,overalltime } = projectsTableData();
-  // const { columns, rows } = authorsTableData();
-  // const { columns: pColumns, rows: pRows } = projectsTableData();
-  const totaltime = (event) => {
-    const emailValue = event.target.value;
-    console.log(emailValue);
-  };
-  const activetime = (event) => {
-    const emailValue = event.target.value;
-    console.log(emailValue);
-  };
-  const overalltime = (event) => {
-    const emailValue = event.target.value;
-    console.log(emailValue);
-  };
-
   return (
     <DashboardLayout>
       <DashboardNavbar />
