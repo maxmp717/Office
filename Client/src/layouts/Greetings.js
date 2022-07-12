@@ -15,7 +15,7 @@ import MDTypography from "components/MDTypography";
 import cartoon from "assets/images/cartoon.png";
 // Billing page components
 // import Greeting from "layouts/Greeting";
-
+// import PropTypes from "prop-types";
 // function Greetings() {
 //   const [greet, setGreet] = useState("");
 //   const [time, setTime] = useState("");
@@ -59,7 +59,7 @@ function Greetings() {
           </MDTypography>
           <MDBox display="flex" flexDirection="row" alignItems="center" justifyContent="flex-end">
             <MDBox color="text" mr={0.5} lineHeight={0}>
-              <Icon color="Warning" fontSize="large">
+              <Icon color="info" fontSize="large">
                 schedule
               </Icon>
             </MDBox>
@@ -112,5 +112,20 @@ function Greetings() {
     </Card>
   );
 }
-
+// Greeting.propTypes = {
+//   color: PropTypes.oneOf([
+//     "primary",
+//     "secondary",
+//     "info",
+//     "success",
+//     "warning",
+//     "error",
+//     "light",
+//     "dark",
+//   ]).isRequired,
+//   icon: PropTypes.node.isRequired,
+//   name: PropTypes.string.isRequired,
+//   description: PropTypes.string.isRequired,
+//   value: PropTypes.string.isRequired,
+// };
 export default Greetings;

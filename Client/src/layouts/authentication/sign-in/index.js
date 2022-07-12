@@ -1,4 +1,3 @@
-/* eslint-disable no-console */
 import { useState } from "react";
 
 // react-router-dom components
@@ -28,30 +27,30 @@ import BasicLayout from "layouts/authentication/components/BasicLayout";
 import bgImage from "assets/images/bg-sign-in-basic.jpeg";
 
 function Basic() {
-  const [rememberMe, setRememberMe] = useState(false);
-  const [log, setLog] = useState({ email: "", password: "" });
+  const [rememberMe, setRememberMe] = useState();
 
+  const initialValues = {
+    email: "",
+    password: "",
+  };
+  const [values, setValues] = useState(initialValues);
   const handleSetRememberMe = () => setRememberMe(!rememberMe);
 
-  // check email
-  const getemailValue = (event) => {
-    const emailValue = event.target.value;
-    setLog({ email: emailValue });
-    // console.log(emailValue);
-  };
-  const getpasswordValue = (event) => {
-    const passwordValue = event.target.value;
-    setLog({ password: passwordValue });
-    // console.log(passwordValue);
+  const handleInputChange = (e) => {
+    const { name, value } = e.target;
+
+    setValues({
+      ...values,
+      [name]: value,
+    });
   };
   const handleSubmit = (e) => {
     e.preventDefault();
     const userData = {
-      email: log.email,
-      password: log.password,
+      email: values.email,
+      password: values.password,
     };
     console.log(userData);
-    // ... submit to API or something
   };
 
   return (
@@ -103,18 +102,20 @@ function Basic() {
               <MDInput
                 type="email"
                 label="Email"
-                value={log.email}
+                value={values.email}
+                onChange={handleInputChange}
+                name="email"
                 fullWidth
-                onChange={getemailValue}
               />
             </MDBox>
             <MDBox mb={2}>
               <MDInput
                 type="password"
                 label="Password"
-                value={log.password}
+                value={values.password}
+                onChange={handleInputChange}
+                name="password"
                 fullWidth
-                onChange={getpasswordValue}
               />
             </MDBox>
             <MDBox display="flex" alignItems="center" ml={-1}>

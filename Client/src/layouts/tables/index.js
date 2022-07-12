@@ -1,77 +1,91 @@
-/* eslint-disable import/no-named-as-default-member */
-// @mui material components
 import Grid from "@mui/material/Grid";
 import Card from "@mui/material/Card";
+import MDButton from "components/MDButton/index";
+// import MDInput from "components/MDInput";
 
 // Material Dashboard 2 React components
 import MDBox from "components/MDBox";
-// import MDTypography from "components/MDTypography";
-import ComplexStatisticsCard from "examples/Cards/StatisticsCards/ComplexStatisticsCard";
+import MDTypography from "components/MDTypography";
+// import ComplexStatisticsCard from "examples/Cards/StatisticsCards/ComplexStatisticsCard";
 // Material Dashboard 2 React example components
 import DashboardLayout from "examples/LayoutContainers/DashboardLayout";
 import DashboardNavbar from "examples/Navbars/DashboardNavbar";
 import Footer from "examples/Footer";
-// import DataTable from "examples/Tables/DataTable";
-
-
+import "react-datepicker/dist/react-datepicker.css";
+// Attandance
 function Tables() {
   return (
     <DashboardLayout>
       <DashboardNavbar />
       <MDBox py={6}>
-        <Grid container spacing={3}>
-          <Grid item xs={12} md={6} lg={4}>
-            <MDBox mb={2.5}>
-              <ComplexStatisticsCard
-                color="warning"
-                icon="work_history"
-                title="Total Time"
-                count={totaltime}
-                percentage={{
-                  color: "success",
-                  // amount: "+55%",
-                  label: "Your over all web page time",
-                }}
-              />
-            </MDBox>
-          </Grid>
-          <Grid item xs={12} md={6} lg={4}>
-            <MDBox mb={1.5}>
-              <ComplexStatisticsCard
-                icon="more_time"
-                title="Active Time"
-                count={activetime}
-                percentage={{
-                  color: "success",
-                  // amount: "+3%",
-                  label: "your work portal time",
-                }}
-              />
-            </MDBox>
-          </Grid>
-          <Grid item xs={12} md={6} lg={4}>
-            <MDBox mb={1.5}>
-              <ComplexStatisticsCard
-                color="success"
-                icon="pending_actions"
-                title="Over AllTime"
-                count={overalltime}
-                percentage={{
-                  color: "success",
-                  // amount: "+1%",
-                  label: "Your over all web page time",
-                }}
-              />
-            </MDBox>
-          </Grid>
-        </Grid>
-        <MDBox mt={6} mb={8}>
+        <MDBox mt={4} mb={8}>
           <Grid container spacing={3} justifyContent="center">
             <Grid item xs={12} lg={8}>
               <Card mb={3}>
-                <MDBox>
-                  <Fileupload />
+                <MDBox
+                  // mb={7}
+                  display="flex"
+                  flexDirection="column"
+                  alignItems="center"
+                  justifyContent="center"
+                >
+                  <MDTypography mt={2} mb={3} variant="caption" color="info" fontWeight="regular">
+                    <h1>Employee Attendance</h1>
+                  </MDTypography>
+                  <MDBox
+                    display="flex"
+                    width="850px"
+                    flexDirection="row"
+                    alignItems="center"
+                    justifyContent="space-evenly"
+                  >
+                    <Grid mt={3} item xs={12} md={6} lg={4}>
+                      <MDButton mb={3} type="submit" color="info" onClick={null}>
+                        Check In!
+                      </MDButton>
+                      <MDBox display="flex" flexDirection="column">
+                        <MDTypography
+                          mt={3}
+                          // mb={3}
+                          variant="caption"
+                          color="dark"
+                          fontWeight="regular"
+                          flexDirection="column"
+                        >
+                          <h3>Time:</h3>
+                        </MDTypography>
+                      </MDBox>
+                    </Grid>
+                    <Grid mt={3} item xs={12} md={6} lg={4}>
+                      <MDButton type="submit" color="success" onClick={null}>
+                        Check out!
+                      </MDButton>
+                      <MDBox display="flex" flexDirection="column">
+                        <MDTypography
+                          mt={3}
+                          // mb={3}
+                          variant="caption"
+                          color="dark"
+                          fontWeight="regular"
+                          flexDirection="column"
+                        >
+                          <h3>Time:</h3>
+                        </MDTypography>
+                      </MDBox>
+                    </Grid>
+                  </MDBox>
                 </MDBox>
+                {/* <Grid item xs={12} lg={8}> */}
+                <MDBox mt={4} px={10} display="flex" flexDirection="column">
+                  <MDTypography mb={1} variant="caption" color="dark" fontWeight="regular">
+                    <h3>Over All Time:</h3>
+                  </MDTypography>
+
+                  <MDTypography mb={3} variant="caption" color="dark" fontWeight="regular">
+                    <h3>Remaning Time:</h3>
+                  </MDTypography>
+                </MDBox>
+                {/* </Grid> */}
               </Card>
             </Grid>
           </Grid>

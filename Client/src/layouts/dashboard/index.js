@@ -19,7 +19,7 @@ import Footer from "examples/Footer";
 // Dashboard components
 // import Projects from "layouts/dashboard/components/Projects";
 // import OrdersOverview from "layouts/dashboard/components/OrdersOverview";
-import Greetings from "layouts/Greetings";
+import Time from "layouts/dashboard/Time";
 
 function Dashboard() {
   // const { sales, tasks } = reportsLineChartData;
@@ -30,7 +30,7 @@ function Dashboard() {
       <MDBox mt={3} mb={3}>
         <Grid container spacing={3} justifyContent="center">
           <Grid item xs={12} lg={11}>
-            <Greetings />
+            <Time />
           </Grid>
         </Grid>
       </MDBox>

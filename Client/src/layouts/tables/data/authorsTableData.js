@@ -1,3 +1,20 @@
+/* eslint-disable react/prop-types */
+/* eslint-disable react/function-component-definition */
+/**
+=========================================================
+* Material Dashboard 2 React - v2.1.0
+=========================================================
+
+* Product Page: https://www.creative-tim.com/product/material-dashboard-react
+* Copyright 2022 Creative Tim (https://www.creative-tim.com)
+
+Coded by www.creative-tim.com
+
+ =========================================================
+
+* The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.
+*/
+
 // Material Dashboard 2 React components
 import MDBox from "components/MDBox";
 import MDTypography from "components/MDTypography";
@@ -5,7 +22,7 @@ import MDAvatar from "components/MDAvatar";
 import MDBadge from "components/MDBadge";
 
 // Images
-import team2 from "assets/images/team-2.jpg";
+// import team2 from "assets/images/team-2.jpg";
 import team3 from "assets/images/team-3.jpg";
 import team4 from "assets/images/team-4.jpg";
 
@@ -33,32 +50,36 @@ export default function data() {
 
   return {
     columns: [
-      { Header: "author", accessor: "author", width: "45%", align: "left" },
-      { Header: "function", accessor: "function", align: "left" },
-      { Header: "status", accessor: "status", align: "center" },
-      { Header: "employed", accessor: "employed", align: "center" },
-      { Header: "action", accessor: "action", align: "center" },
+      { Header: "sl.no", accessor: "number", width: "2%", align: "center" },
+      { Header: "empId ", accessor: "empId", width: "2%", align: "center" },
+      { Header: "name", accessor: "name", width: "25%", align: "center" },
+      { Header: "date", accessor: "date", align: "center" },
+      { Header: "active time", accessor: "activetime", align: "center" },
+      { Header: "working time", accessor: "workingtime", align: "center" },
+      { Header: "entity time", accessor: "entitytime", align: "center" },
     ],
 
     rows: [
       {
-        author: <Author image={team2} name="John Michael" email="john@creative-tim.com" />,
-        function: <Job title="Manager" description="Organization" />,
-        status: (
-          <MDBox ml={-1}>
-            <MDBadge badgeContent="online" color="success" variant="gradient" size="sm" />
-          </MDBox>
-        ),
-        employed: (
+        number: (
           <MDTypography component="a" href="#" variant="caption" color="text" fontWeight="medium">
-            23/04/18
+            1
           </MDTypography>
         ),
-        action: (
+        empId: (
           <MDTypography component="a" href="#" variant="caption" color="text" fontWeight="medium">
-            Edit
+            001
           </MDTypography>
         ),
+        name: <Author name="Ravi Ravi" email="ravi@objectways.com" />,
+        date: (
+          <MDTypography component="a" href="#" variant="caption" color="text" fontWeight="medium">
+            08/07/2022
+          </MDTypography>
+        ),
+        activetime: <Job title="8hr:25min" description="" />,
+        workingtime: <Job title="4hr:20min" description="" />,
+        entitytime: <Job title="4hr:05min" description="" />,
       },
       {
         author: <Author image={team3} name="Alexa Liras" email="alexa@creative-tim.com" />,
