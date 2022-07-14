@@ -20,6 +20,7 @@ import MDBox from "components/MDBox";
 import MDTypography from "components/MDTypography";
 import MDAvatar from "components/MDAvatar";
 import MDBadge from "components/MDBadge";
+// import DataTable from "examples/Tables/DataTable";
 
 // Images
 // import team2 from "assets/images/team-2.jpg";
@@ -47,11 +48,12 @@ export default function data() {
       <MDTypography variant="caption">{description}</MDTypography>
     </MDBox>
   );
-
+  // <DataTable
+  // table={{
   return {
     columns: [
       { Header: "sl.no", accessor: "number", width: "2%", align: "center" },
-      { Header: "empId ", accessor: "empId", width: "2%", align: "center" },
+      { Header: "team ", accessor: "team", width: "2%", align: "center" },
       { Header: "name", accessor: "name", width: "25%", align: "center" },
       { Header: "date", accessor: "date", align: "center" },
       { Header: "active time", accessor: "activetime", align: "center" },
@@ -66,9 +68,9 @@ export default function data() {
             1
           </MDTypography>
         ),
-        empId: (
+        team: (
           <MDTypography component="a" href="#" variant="caption" color="text" fontWeight="medium">
-            001
+            Dumbledore
           </MDTypography>
         ),
         name: <Author name="Ravi Ravi" email="ravi@objectways.com" />,
@@ -178,4 +180,6 @@ export default function data() {
       },
     ],
   };
+  // }}
+  // />
 }

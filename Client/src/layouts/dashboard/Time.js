@@ -1,28 +1,42 @@
-/* eslint-disable import/no-named-as-default-member */
-// @mui material components
 import Grid from "@mui/material/Grid";
 import Card from "@mui/material/Card";
 import MDButton from "components/MDButton/index";
 import MDInput from "components/MDInput";
-// Material Dashboard 2 React components
+import * as React from "react";
+import InputLabel from "@mui/material/InputLabel";
+import FormControl from "@mui/material/FormControl";
+import Select from "@mui/material/Select";
 import MDBox from "components/MDBox";
 import MDTypography from "components/MDTypography";
 import ComplexStatisticsCard from "examples/Cards/StatisticsCards/ComplexStatisticsCard";
-// Material Dashboard 2 React example components
-// import DashboardLayout from "examples/LayoutContainers/DashboardLayout";
-// import DashboardNavbar from "examples/Navbars/DashboardNavbar";
-// import Footer from "examples/Footer";
-// import DataTable from "examples/Tables/DataTable";
 import papa from "papaparse";
 import convert from "convert-seconds-to-human";
-// import Fileupload from "layouts/tables/Fileupload";
 import { useState, useEffect } from "react";
 
 function Time() {
   const [data, setData] = useState([]);
   const [seconds, setSeconds] = useState({ TotalTime: "", ActiveTime: "", EntityTime: "" });
-  // const [total, setTotal] = useState([]);
 
+  const initialValues = {
+    team: "",
+  };
+  const [values, setValues] = useState(initialValues);
+
+  const handleInputChange = (e) => {
+    const { name, value } = e.target;
+
+    setValues({
+      ...values,
+      [name]: value,
+    });
+  };
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    const userData = {
+      team: values.team,
+    };
+    console.log(userData);
+  };
   // file handling
   const handlingFileUpload = (e) => {
     const { files } = e.target;
@@ -116,7 +130,7 @@ function Time() {
           </MDBox>
         </Grid>
       </Grid>
-      <MDBox mt={6} mb={8}>
+      <MDBox mt={6} mb={8} component="form" role="form" onSubmit={handleSubmit}>
         <Grid container spacing={3} justifyContent="center">
           <Grid item xs={12} lg={8}>
             <Card mb={3}>
@@ -131,14 +145,57 @@ function Time() {
                   <h1>Upload your CSV file</h1>
                 </MDTypography>
                 <MDBox
+                  // mt={4}
                   display="flex"
-                  width="450px"
+                  width="550px"
                   flexDirection="row"
                   alignItems="center"
                   justifyContent="space-evenly"
                 >
-                  <MDInput type="file" accept=".csv" onChange={handlingFileUpload} />
-                  <MDButton type="submit" color="success" onClick={null}>
+                  <Grid item xs={4}>
+                    <div>
+                      <FormControl sx={{ minWidth: 180 }}>
+                        <InputLabel htmlFor="grouped-native-select">TEAM</InputLabel>
+                        <Select
+                          native
+                          id="grouped-native-select"
+                          label="team"
+                          name="team"
+                          value={values.team}
+                          onChange={handleInputChange}
+                        >
+                          <option aria-label="None" />
+                          <optgroup label="CV">
+                            <option value="Dumbeldore">Dumbeldore</option>
+                            <option value="Annatel">Annatel</option>
+                            <option value="team1">team1</option>
+                            <option value="team2">team2</option>
+                            <option value="team3">team3</option>
+                            {/* <option value="team4">team4</option>
+                            <option value="team5">team5</option>
+                            <option value="team6">team6</option>
+                            <option value="team7">team7</option> */}
+                          </optgroup>
+                          <optgroup label="NLP">
+                            <option value="Nlp1">nlp1</option>
+                            <option value="team1">team1</option>
+                            <option value="team2">team2</option>
+                            <option value="team3">team3</option>
+                            {/* <option value="team4">team4</option>
+                            <option value="team5">team5</option>
+                            <option value="team6">team6</option>
+                            <option value="team7">team7</option> */}
+                          </optgroup>
+                        </Select>
+                      </FormControl>
+                    </div>
+                  </Grid>
+                  <Grid item xs={6}>
+                    <MDInput type="file" accept=".csv" onChange={handlingFileUpload} />
+                  </Grid>
+                </MDBox>
+                <MDBox pt={3} px={2} display="flex" justifyContent="end" alignItems="center">
+                  <MDButton type="submit" color="success">
                     Upload!
                   </MDButton>
                 </MDBox>
