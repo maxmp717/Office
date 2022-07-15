@@ -37,13 +37,16 @@ Coded by www.creative-tim.com
 
 // Material Dashboard 2 React layouts
 import Dashboard from "layouts/dashboard";
-import Tables from "layouts/tables";
-import Billing from "layouts/billing";
+// import Tables from "layouts/tables";
+// import Billing from "layouts/billing";
 // import RTL from "layouts/rtl";
 import Notifications from "layouts/notifications";
 import Profile from "layouts/profile";
 import SignIn from "layouts/authentication/sign-in";
 import SignUp from "layouts/authentication/sign-up";
+import UserReport from "layouts/UserReport";
+import AdminReport from "layouts/AdminReport";
+import Attandance from "layouts/Attandance";
 
 // @mui icons
 import Icon from "@mui/material/Icon";
@@ -57,21 +60,29 @@ const routes = [
     route: "/dashboard",
     component: <Dashboard />,
   },
+  // {
+  //   type: "collapse",
+  //   name: "Attandance",
+  //   key: "Attandance",
+  //   icon: <Icon fontSize="small">table_view</Icon>,
+  //   route: "/Attandance",
+  //   component: <Tables />,
+  // },
   {
     type: "collapse",
     name: "Attandance",
-    key: "attandance",
+    key: "Attandance",
     icon: <Icon fontSize="small">table_view</Icon>,
-    route: "/attandance",
-    component: <Tables />,
+    route: "/Attandance",
+    component: <Attandance />,
   },
   {
     type: "collapse",
-    name: "Report",
-    key: "Report",
+    name: "UserReport",
+    key: "UserReport",
     icon: <Icon fontSize="small">receipt_long</Icon>,
-    route: "/Report",
-    component: <Billing />,
+    route: "/UserReport",
+    component: <UserReport />,
   },
   // {
   //   type: "collapse",
@@ -83,19 +94,27 @@ const routes = [
   // },
   {
     type: "collapse",
-    name: "Notifications",
-    key: "notifications",
-    icon: <Icon fontSize="small">notifications</Icon>,
-    route: "/notifications",
-    component: <Notifications />,
-  },
-  {
-    type: "collapse",
     name: "Profile",
     key: "profile",
     icon: <Icon fontSize="small">person</Icon>,
     route: "/profile",
     component: <Profile />,
+  },
+  {
+    type: "collapse",
+    name: "AdminReport",
+    key: "AdminReport",
+    icon: <Icon fontSize="small">receipt_long</Icon>,
+    route: "/AdminReport",
+    component: <AdminReport />,
+  },
+  {
+    type: "collapse",
+    name: "Notifications",
+    key: "notifications",
+    icon: <Icon fontSize="small">notifications</Icon>,
+    route: "/notifications",
+    component: <Notifications />,
   },
   {
     type: "collapse",
