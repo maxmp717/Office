@@ -2,15 +2,18 @@ import Card from "@mui/material/Card";
 import Grid from "@mui/material/Grid";
 // import Icon from "@mui/material/Icon";
 // import Tooltip from "@mui/material/Tooltip";
-import authorsTableData from "layouts/tables/data/authorsTableData";
-import DataTable from "examples/Tables/DataTable";
+// import authorsTableData from "layouts/tables/data/authorsTableData";
+// import DataTable from "examples/Tables/DataTable";
 // Material Dashboard 2 React components
 import MDBox from "components/MDBox";
 import MDTypography from "components/MDTypography";
 import MDButton from "components/MDButton";
 import MDInput from "components/MDInput";
+// import { Datatable } from "react-datatable-search-pagination";
 // import MDAvatar from "components/MDAvatar";
 import * as React from "react";
+import { DataGrid } from "@mui/x-data-grid";
+import Box from "@mui/material/Box";
 // import Box from "@mui/material/Box";
 // import { DataGrid } from "@mui/x-data-grid";
 // import InputLabel from "@mui/material/InputLabel";
@@ -25,7 +28,7 @@ import "react-datepicker/dist/react-datepicker.css";
 // import MDInputRoot from "components/MDInput/MDInputRoot";
 
 function Report() {
-  const { columns, rows } = authorsTableData();
+  // const { columns, rows } = authorsTableData();
   const initialValues = {
     startDate: "",
     endDate: "",
@@ -56,124 +59,124 @@ function Report() {
   };
 
   // tabel report
-  // const columns = [
-  //   { field: "id", headerName: "ID", width: 90 },
-  //   {
-  //     field: "name",
-  //     headerName: "Name",
-  //     width: 150,
-  //     editable: false,
-  //   },
-  //   {
-  //     field: "team",
-  //     headerName: "Team",
-  //     width: 150,
-  //     editable: false,
-  //   },
-  //   {
-  //     field: "date",
-  //     headerName: "Date",
-  //     // type: 'date',
-  //     width: 110,
-  //     editable: false,
-  //   },
-  //   {
-  //     field: "activetime",
-  //     headerName: "Active Time",
-  //     // type: 'time',
-  //     width: 110,
-  //     editable: false,
-  //   },
-  //   {
-  //     field: "workingtime",
-  //     headerName: "Working Time",
-  //     // type: 'number',
-  //     width: 110,
-  //     editable: false,
-  //   },
-  //   {
-  //     field: "entitytime",
-  //     headerName: "Entity Time",
-  //     // type: 'number',
-  //     width: 110,
-  //     editable: true,
-  //   },
-  // ];
+  const columns = [
+    { field: "id", headerName: "ID", width: 80 },
+    {
+      field: "name",
+      headerName: "Name",
+      width: 150,
+      editable: false,
+    },
+    {
+      field: "team",
+      headerName: "Team",
+      width: 150,
+      editable: false,
+    },
+    {
+      field: "date",
+      headerName: "Date",
+      // type: 'date',
+      width: 130,
+      editable: false,
+    },
+    {
+      field: "activetime",
+      headerName: "Active Time",
+      // type: 'time',
+      width: 150,
+      editable: false,
+    },
+    {
+      field: "workingtime",
+      headerName: "Working Time",
+      // type: 'number',
+      width: 150,
+      editable: false,
+    },
+    {
+      field: "entitytime",
+      headerName: "Entity Time",
+      // type: 'number',
+      width: 150,
+      editable: false,
+    },
+  ];
 
-  // const rows = [
-  //   {
-  //     id: 1,
-  //     name: "Stark",
-  //     team: "Dumbeldore",
-  //     date: "10/07/2022",
-  //     activetime: "08hrs:30mins",
-  //     workingtime: "04hrs:00mins",
-  //     entitytime: "04hrs:30mins",
-  //   },
-  //   {
-  //     id: 2,
-  //     name: "Stark",
-  //     team: "Dumbeldore",
-  //     date: "10/07/2022",
-  //     activetime: "08hrs:30mins",
-  //     workingtime: "04hrs:00mins",
-  //     entitytime: "04hrs:30mins",
-  //   },
-  //   {
-  //     id: 3,
-  //     name: "Stark",
-  //     team: "Dumbeldore",
-  //     date: "10/07/2022",
-  //     activetime: "08hrs:30mins",
-  //     workingtime: "04hrs:00mins",
-  //     entitytime: "04hrs:30mins",
-  //   },
-  //   {
-  //     id: 4,
-  //     name: "Stark",
-  //     team: "Dumbeldore",
-  //     date: "10/07/2022",
-  //     activetime: "08hrs:30mins",
-  //     workingtime: "04hrs:00mins",
-  //     entitytime: "04hrs:30mins",
-  //   },
-  //   {
-  //     id: 5,
-  //     name: "Stark",
-  //     team: "Dumbeldore",
-  //     date: "10/07/2022",
-  //     activetime: "08hrs:30mins",
-  //     workingtime: "04hrs:00mins",
-  //     entitytime: "04hrs:30mins",
-  //   },
-  //   {
-  //     id: 6,
-  //     name: "Stark",
-  //     team: "Dumbeldore",
-  //     date: "10/07/2022",
-  //     activetime: "08hrs:30mins",
-  //     workingtime: "04hrs:00mins",
-  //     entitytime: "04hrs:30mins",
-  //   },
-  //   {
-  //     id: 7,
-  //     name: "Stark",
-  //     team: "Dumbeldore",
-  //     date: "10/07/2022",
-  //     activetime: "08hrs:30mins",
-  //     workingtime: "04hrs:00mins",
-  //     entitytime: "04hrs:30mins",
-  //   },
-  //   {
-  //     id: 8,
-  //     name: "Stark",
-  //     team: "Dumbeldore",
-  //     date: "10/07/2022",
-  //     activetime: "08hrs:30mins",
-  //     workingtime: "04hrs:00mins",
-  //     entitytime: "04hrs:30mins",
-  //   },
-  // ];
+  const rows = [
+    {
+      id: 1,
+      name: "Stark",
+      team: "Dumbeldore",
+      date: "10/07/2022",
+      activetime: "08hrs:30mins",
+      workingtime: "04hrs:00mins",
+      entitytime: "04hrs:30mins",
+    },
+    {
+      id: 2,
+      name: "mark",
+      team: "lane",
+      date: "10/07/2022",
+      activetime: "08hrs:30mins",
+      workingtime: "04hrs:00mins",
+      entitytime: "04hrs:30mins",
+    },
+    {
+      id: 3,
+      name: "Stark",
+      team: "cv",
+      date: "10/07/2022",
+      activetime: "08hrs:30mins",
+      workingtime: "04hrs:00mins",
+      entitytime: "04hrs:30mins",
+    },
+    {
+      id: 4,
+      name: "Stark",
+      team: "Nlp",
+      date: "10/07/2022",
+      activetime: "08hrs:30mins",
+      workingtime: "04hrs:00mins",
+      entitytime: "04hrs:30mins",
+    },
+    {
+      id: 5,
+      name: "Stark",
+      team: "Dumbeldore",
+      date: "10/07/2022",
+      activetime: "08hrs:30mins",
+      workingtime: "04hrs:00mins",
+      entitytime: "04hrs:30mins",
+    },
+    {
+      id: 6,
+      name: "Stark",
+      team: "sky",
+      date: "10/07/2022",
+      activetime: "08hrs:30mins",
+      workingtime: "04hrs:00mins",
+      entitytime: "04hrs:30mins",
+    },
+    {
+      id: 7,
+      name: "Stark",
+      team: "moon",
+      date: "10/07/2022",
+      activetime: "08hrs:30mins",
+      workingtime: "04hrs:00mins",
+      entitytime: "04hrs:30mins",
+    },
+    {
+      id: 8,
+      name: "Stark",
+      team: "sun",
+      date: "10/07/2022",
+      activetime: "08hrs:30mins",
+      workingtime: "04hrs:00mins",
+      entitytime: "04hrs:30mins",
+    },
+  ];
   return (
     <>
       <Card>
@@ -193,7 +196,7 @@ function Report() {
               Reports
             </MDTypography>
           </MDBox>
-          <MDBox pt={6} px={2} display="flex" justifycontent="space-evenly" alignItems="center">
+          <MDBox pt={6} px={4} display="flex" justifycontent="space-evenly" alignItems="center">
             <Grid container spacing={3}>
               {/* <Grid item xs={12} md={4}> */}
               <Grid item xs={3}>
@@ -289,23 +292,24 @@ function Report() {
                 </MDTypography>
               </MDBox>
               <MDBox pt={3}>
-                <DataTable
+                {/* <Datatable tableHead={mytableHead} dataSrc={mydataSrc} /> */}
+                {/* <DataTable
                   table={{ columns, rows }}
                   isSorted={false}
                   entriesPerPage={false}
                   showTotalEntries={false}
                   noEndBorder
-                />
-                {/* <Box sx={{ height: 400, width: "100%" }}>
+                /> */}
+                <Box sx={{ height: 700, width: "100%" }}>
                   <DataGrid
                     rows={rows}
                     columns={columns}
                     pageSize={10}
                     rowsPerPageOptions={[10]}
-                    // checkboxSelection
-                    // disableSelectionOnClick
+                    checkboxSelection
+                    disableSelectionOnClick
                   />
-                </Box> */}
+                </Box>
               </MDBox>
             </Card>
           </Grid>
