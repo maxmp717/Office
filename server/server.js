@@ -35,9 +35,10 @@ app.use(passport.initialize());
 
 // For Routing Purpose
 import User from './routes/user.js'
+import Analyst from './routes/analyst.js'
 // For Routers
-app.use('/user',User);
-
+app.use('/authentication/user',User);
+app.use('/analyst',Analyst);
 
 
 app.use(express.static(path.join(__dirname ,  'client/build')))

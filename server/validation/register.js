@@ -9,9 +9,14 @@ function registerValidate  (data){
     data.email = !isEmpty(data.email) ? data.email :'';
     data.password = !isEmpty(data.password) ? data.password :'';
     data.password2 = !isEmpty(data.password2) ? data.password2 :'';
+    data.empId = !isEmpty(data.empId) ? data.password:'';
 
     if(Validator.isEmpty(data.name)){
-        errors.name = 'Name field is required'
+        errors.name = 'Name Field is Required'
+    }
+
+    if(Validator.isEmpty(data.empId)){
+      errors.empId = 'Employee ID is Required'
     }
 
     if (Validator.isEmpty(data.email)) {

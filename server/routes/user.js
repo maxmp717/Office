@@ -26,7 +26,9 @@ router.route('/register').post((req,res)=>{
             const newUser = new User({
                 name: req.body.name,
                 email: req.body.email,
-                password:req.body.password
+                password:req.body.password,
+                empId: req.body.empId,
+                role: req.body.role
             });
             
             bcrypt.genSalt(10,(err,salt)=>{
@@ -67,7 +69,10 @@ router.route('/login').post((req,res)=>{
 
                 const payload = {
                     id : user.id,
-                    name: user.name
+                    name: user.name,
+                    email: user.email,
+                    empId: user.empId,
+                    role: user.role
                 };
 
                 jwt.sign(
@@ -82,7 +87,7 @@ router.route('/login').post((req,res)=>{
                     }
                 )
             }else{
-                return res.status(400).json({passwordinCorrect:'password in correct'})
+                return res.status(400).json({passwordinCorrect:'Password Incorrect'})
             }
         })
     })

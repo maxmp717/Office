@@ -1,7 +1,7 @@
-import { useState } from "react";
+import { useState , useEffect} from "react";
 
 // react-router-dom components
-import { Link } from "react-router-dom";
+import { Link ,useNavigate} from "react-router-dom";
 
 // @mui material components
 import Card from "@mui/material/Card";
@@ -26,9 +26,14 @@ import BasicLayout from "layouts/authentication/components/BasicLayout";
 // Images
 import bgImage from "assets/images/bg-sign-in-basic.jpeg";
 
-function Basic() {
-  const [rememberMe, setRememberMe] = useState();
+// Redux
+import {loginUser} from 'actions/authAction';
+import {connect} from 'react-redux';
 
+function Basic(props) {
+  const [rememberMe, setRememberMe] = useState();
+  const [err,setErr] = useState({email:'',password:'',emailIncorrect:'',passwordIncorrect:''})
+  const navigate = useNavigate();
   const initialValues = {
     email: "",
     password: "",
@@ -44,6 +49,25 @@ function Basic() {
       [name]: value,
     });
   };
+
+  useEffect(()=>{
+    if(props.auth.isAuthenticated){
+      navigate('/dashboard')
+    }
+  })
+
+  useEffect(()=>{
+    if(props.errors){
+      setErr({
+        email: props.errors.email,
+        password: props.errors.password,
+        emailIncorrect: props.errors.emailnotfound,
+        passwordIncorrect: props.errors.passwordinCorrect,
+      })
+    }
+  },[props.errors])
+
+
   const handleSubmit = (e) => {
     e.preventDefault();
     const userData = {
@@ -51,6 +75,7 @@ function Basic() {
       password: values.password,
     };
     console.log(userData);
+    props.loginUser(userData);
   };
 
   return (
@@ -101,7 +126,7 @@ function Basic() {
                 fullWidth
               />
             </MDBox>
-            <MDBox display="flex" alignItems="center" ml={-1}>
+            {/* <MDBox display="flex" alignItems="center" ml={-1}>
               <Switch checked={rememberMe} onChange={handleSetRememberMe} />
               <MDTypography
                 variant="button"
@@ -112,7 +137,7 @@ function Basic() {
               >
                 &nbsp;&nbsp;Remember me
               </MDTypography>
-            </MDBox>
+            </MDBox> */}
             <MDBox mt={4} mb={1}>
               <MDButton variant="gradient" type="submit" color="info" fullWidth>
                 sign in
@@ -140,4 +165,9 @@ function Basic() {
   );
 }
 
-export default Basic;
+const mapStateToProps = state =>({
+  auth: state.auth,
+  errors: state.errors
+})
+
+export default connect(mapStateToProps,{loginUser})(Basic);

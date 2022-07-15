@@ -43,14 +43,17 @@ import {
 } from "context";
 import MDButton from "components/MDButton";
 
-function DashboardNavbar({ absolute, light, isMini }) {
+//Redux functions
+import {logoutUser} from 'actions/authAction';
+import {connect,useSelector} from 'react-redux';
+function DashboardNavbar(props,{ absolute, light, isMini }) {
   const [navbarType, setNavbarType] = useState();
   const [controller, dispatch] = useMaterialUIController();
   // eslint-disable-next-line no-unused-vars
   const { miniSidenav, transparentNavbar, fixedNavbar, darkMode } = controller;
   const [openMenu, setOpenMenu] = useState(false);
   const route = useLocation().pathname.split("/").slice(1);
-
+  const mail = useSelector(state=>state.auth.user.email);
   useEffect(() => {
     // Setting the navbar type
     if (fixedNavbar) {
@@ -82,6 +85,12 @@ function DashboardNavbar({ absolute, light, isMini }) {
   const handleOpenMenu = (event) => setOpenMenu(event.currentTarget);
   const handleCloseMenu = () => setOpenMenu(false);
 
+  //logout Function
+  const onOut = e =>{
+    e.preventDefault();
+    props.logoutUser();
+  }
+
   // Render the notifications menu
   const renderMenu = () => (
     <Menu
@@ -95,10 +104,10 @@ function DashboardNavbar({ absolute, light, isMini }) {
       onClose={handleCloseMenu}
       sx={{ mt: 2 }}
     >
-      <NotificationItem icon={<Icon>email</Icon>} title="ravi@objectways.com" />
+      <NotificationItem icon={<Icon>email</Icon>} title={mail} />
       <MDButton>
         <Link to="/authentication/sign-in/basic">
-          <NotificationItem icon={<Icon>logout</Icon>} title="Logout" />
+          <NotificationItem icon={<Icon>logout</Icon>} title="Logout" onClick={onOut} />
         </Link>
       </MDButton>
       {/* <NotificationItem icon={<Icon>shopping_cart</Icon>} title="Payment successfully completed" /> */}
@@ -196,4 +205,8 @@ DashboardNavbar.propTypes = {
   isMini: PropTypes.bool,
 };
 
-export default DashboardNavbar;
+const mapStateToProps = state =>({
+  auth: state.auth
+})
+
+export default connect(mapStateToProps,{logoutUser})(DashboardNavbar);

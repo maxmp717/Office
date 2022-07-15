@@ -11,12 +11,15 @@ router.route('/').get((req,res)=>{
 
 router.route('/add').post((req,res)=>{
     // const data = req.body
+    const name = req.body.name
+    const team = req.body.team
     const empId = req.body.empId
     const TotalTime = req.body.TotalTime
     const ActiveTime = req.body.ActiveTime
+    const EntityTime = req.body.EntityTime
     // const week = req.body.week
     // const createdAt = req.body.createdAt
-    const newData = new Analyst({empId,TotalTime,ActiveTime})
+    const newData = new Analyst({name,team,empId,TotalTime,ActiveTime,EntityTime})
 
     newData.save()
     .then(()=>res.json('Data Saved!!!'))
