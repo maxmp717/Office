@@ -8,16 +8,16 @@ import MDTypography from "components/MDTypography";
 import MDButton from "components/MDButton";
 import MDInput from "components/MDInput";
 import * as React from "react";
-import { DataGrid , GridToolbar} from "@mui/x-data-grid";
+import { DataGrid, GridToolbar } from "@mui/x-data-grid";
 import Box from "@mui/material/Box";
 import FormControl from "@mui/material/FormControl";
 import Select from "@mui/material/Select";
-import { useState, useEffect , useMemo} from "react";
+import { useState, useEffect, useMemo } from "react";
 import "react-datepicker/dist/react-datepicker.css";
-import TextField from '@mui/material/TextField';
-import Autocomplete from '@mui/material/Autocomplete';
-import axios from 'axios';
-import moment from 'moment';
+import TextField from "@mui/material/TextField";
+import Autocomplete from "@mui/material/Autocomplete";
+import axios from "axios";
+import moment from "moment";
 import { height } from "@mui/system";
 
 function AdminReport() {
@@ -27,9 +27,9 @@ function AdminReport() {
     team: "",
   };
   const [values, setValues] = useState(initialValues);
-  const [name,setName] = useState([]);
-  const [empName,setEmpName] = useState(null);
-  const [report,setReport] = useState([]);
+  const [name, setName] = useState([]);
+  const [empName, setEmpName] = useState(null);
+  const [report, setReport] = useState([]);
 
   const handleInputChange = (e) => {
     const { name, value } = e.target;
@@ -39,8 +39,7 @@ function AdminReport() {
       [name]: value,
     });
   };
-  const handleChange = (event,value)=> setEmpName(value)
-
+  const handleChange = (event, value) => setEmpName(value);
 
   const [show, setShow] = useState(false);
   const handleSubmit = (e) => {
@@ -52,46 +51,45 @@ function AdminReport() {
       team: values.team,
     };
     console.log(userData);
-    
+
     const sDate = values.startDate;
     const eDate = values.endDate;
-    const name  = empName;
-    const team = values.team;
+    const name = empName;
+    const { team } = values;
 
-    if(name !== ''){
-      axios.get('analyst/fetch/report/team/?sDate='+sDate+'&eDate='+eDate+'&team='+team)
-      .then((res)=>{
-        console.log(res.data)
-        setReport(res.data)
-      })
-      .catch(err=>console.log('Error:'+err))
-    
-  }
-  else{
-    axios.get('analyst/fetch/report/?sDate='+sDate+'&eDate='+eDate+'&name='+name+'&team='+team)
-    .then((res)=>{
-      console.log(res.data)
-      setReport(res.data)
-    })
-    .catch(err=>console.log('Error:'+err))
-  }
+    if (name !== "") {
+      axios
+        .get(`analyst/fetch/report/team/?sDate=${sDate}&eDate=${eDate}&team=${team}`)
+        .then((res) => {
+          console.log(res.data);
+          setReport(res.data);
+        })
+        .catch((err) => console.log(`Error:${err}`));
+    } else {
+      axios
+        .get(`analyst/fetch/report/?sDate=${sDate}&eDate=${eDate}&name=${name}&team=${team}`)
+        .then((res) => {
+          console.log(res.data);
+          setReport(res.data);
+        })
+        .catch((err) => console.log(`Error:${err}`));
+    }
   };
 
-  useEffect(()=>{
+  useEffect(() => {
     userName();
-  },[])    
+  }, []);
 
-  const userName = () =>{
-    axios.get('authentication/user/users')
-    .then((res)=>{
-      setName(res.data)
-    })
-    console.log(name)
-  }
+  const userName = () => {
+    axios.get("authentication/user/users").then((res) => {
+      setName(res.data);
+    });
+    console.log(name);
+  };
 
   // tabel report
   const columns = [
-    {field:'id', headerName:'ID', width: 80},
+    { field: "id", headerName: "ID", width: 80 },
     {
       field: "name",
       headerName: "Name",
@@ -134,14 +132,26 @@ function AdminReport() {
     },
   ];
   const row = useMemo(
-    ()=> report.map((item,index)=>({...item,id: index+1,name: item.name,team: item.team, 
-      date: moment(item.createdAt).format("DD MM YYYY"),
-       TotalTime: moment.utc(moment.duration(item.TotalTime,'seconds').as('milliseconds')).format('HH:mm:ss')
-       ,ActiveTime: moment.utc(moment.duration(item.ActiveTime,'seconds').as('milliseconds')).format('HH:mm:ss'),
-       EntityTime: moment.utc(moment.duration(item.EntityTime,'seconds').as('milliseconds')).format('HH:mm:ss')})),
+    () =>
+      report.map((item, index) => ({
+        ...item,
+        id: index + 1,
+        name: item.name,
+        team: item.team,
+        date: moment(item.createdAt).format("DD MM YYYY"),
+        TotalTime: moment
+          .utc(moment.duration(item.TotalTime, "seconds").as("milliseconds"))
+          .format("HH:mm:ss"),
+        ActiveTime: moment
+          .utc(moment.duration(item.ActiveTime, "seconds").as("milliseconds"))
+          .format("HH:mm:ss"),
+        EntityTime: moment
+          .utc(moment.duration(item.EntityTime, "seconds").as("milliseconds"))
+          .format("HH:mm:ss"),
+      })),
     [report]
   );
-  
+
   return (
     <DashboardLayout>
       <DashboardNavbar />
@@ -203,42 +213,62 @@ function AdminReport() {
                       >
                         <option aria-label="None" />
                         <optgroup label="CV">
-                          <option value="Dumbeldore">Dumbeldore</option>
-                          <option value="Annatel">Cv</option>
+                          <option value="Dumbledore">Dumbledore</option>
+                          <option value="Annotell">Annotell</option>
+                          <option value="Lane">Lane</option>
+                          <option value="Pomelo">Pomelo</option>
                         </optgroup>
                         <optgroup label="NLP">
-                          <option value="Nlp1">nlp1</option>
-                          <option value="nlp1">nlp 1</option>
+                          <option value="Nala">Nala</option>
+                          <option value="Lime">Lime</option>
+                          <option value="Dragon">Dragon</option>
                         </optgroup>
                       </Select>
                     </FormControl>
                   </div>
                 </Grid>
-                <Grid item xs={3}>
+                <Grid item xs={2}>
                   <MDTypography variant="h6" fontWeight="medium">
                     Name
                   </MDTypography>
                   <Autocomplete
-        id="free-solo-demo"
-        freeSolo
-        options={name.map((option) => option.name)}
-      
-        onChange={handleChange}
-        renderInput={(params) => <TextField {...params} />}
-        sx={{ width: '200px' , height: '10px'}}
-      />
+                    id="free-solo-demo"
+                    freeSolo
+                    options={name.map((option) => option.name)}
+                    onChange={handleChange}
+                    renderInput={(params) => <TextField {...params} />}
+                    sx={{ width: "180px" }}
+                  />
                 </Grid>
-                {/* </Grid> */}
+                <Grid item xs={1}>
+                  <MDBox
+                    pt={4}
+                    pb={3}
+                    // px={2}
+                    display="flex"
+                    justifyContent="end"
+                    alignItems="center"
+                  >
+                    <MDButton
+                      variant="gradient"
+                      color="success"
+                      type="submit"
+                      onClick={() => setShow(!show)}
+                    >
+                      &nbsp;Search
+                    </MDButton>
+                  </MDBox>
+                </Grid>
               </Grid>
             </MDBox>
             <MDBox pt={3} pb={3} px={2} display="flex" justifyContent="end" alignItems="center">
               <MDButton
                 variant="gradient"
-                color="success"
+                color="error"
                 type="submit"
-                onClick={() => setShow(!show)}
+                // onClick={() => setShow(!show)}
               >
-                &nbsp;Search
+                &nbsp;Get All Report
               </MDButton>
             </MDBox>
           </MDBox>
@@ -291,5 +321,4 @@ function AdminReport() {
     </DashboardLayout>
   );
 }
-
 export default AdminReport;

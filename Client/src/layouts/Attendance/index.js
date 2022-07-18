@@ -11,7 +11,7 @@ import "react-datepicker/dist/react-datepicker.css";
 import React, { useState } from "react";
 import moment from "moment";
 
-function Attandance() {
+function Attendance() {
   const [ctime, setTime] = useState();
   const [checkT, setCheckT] = useState();
   const [total, setTotal] = useState();
@@ -171,4 +171,4 @@ function Attandance() {
   );
 }
 
-export default Attandance;
+export default Attendance;

@@ -9,14 +9,14 @@ import { DataGrid, GridToolbar } from "@mui/x-data-grid";
 import Box from "@mui/material/Box";
 import FormControl from "@mui/material/FormControl";
 import Select from "@mui/material/Select";
-import { useState , useMemo } from "react";
+import { useState, useMemo } from "react";
 import "react-datepicker/dist/react-datepicker.css";
 import DashboardLayout from "examples/LayoutContainers/DashboardLayout";
 import DashboardNavbar from "examples/Navbars/DashboardNavbar";
 import Footer from "examples/Footer";
-import {useSelector } from 'react-redux';
-import axios from 'axios';
-import moment from 'moment';
+import { useSelector } from "react-redux";
+import axios from "axios";
+import moment from "moment";
 import { useSelect } from "@mui/base";
 
 function Report() {
@@ -28,8 +28,8 @@ function Report() {
     team: "",
   };
   const [values, setValues] = useState(initialValues);
-  const [report,setReport] = useState([]);
-  const empId = useSelector(state=>state.auth.user.empId)
+  const [report, setReport] = useState([]);
+  const empId = useSelector((state) => state.auth.user.empId);
   const handleInputChange = (e) => {
     const { name, value } = e.target;
 
@@ -49,11 +49,14 @@ function Report() {
     };
     console.log(userData);
 
-    axios.get('analyst/fetch/user-data/?sDate='+values.startDate+'&eDate='+values.endDate+'&empId='+empId+'&team='+values.team)
-    .then((res)=>{
-      setReport(res.data)
-    })
-    .catch(err=>console.log('Error:'+err))
+    axios
+      .get(
+        `analyst/fetch/user-data/?sDate=${values.startDate}&eDate=${values.endDate}&empId=${empId}&team=${values.team}`
+      )
+      .then((res) => {
+        setReport(res.data);
+      })
+      .catch((err) => console.log(`Error:${err}`));
   };
 
   // tabel report
@@ -102,15 +105,26 @@ function Report() {
   ];
 
   const rows = useMemo(
-    ()=> report.map((item,index)=>({...item,id: index+1,name: item.name,team: item.team, 
-      date: moment(item.createdAt).format("DD MM YYYY"),
-       TotalTime: moment.utc(moment.duration(item.TotalTime,'seconds').as('milliseconds')).format('HH:mm:ss')
-       ,ActiveTime: moment.utc(moment.duration(item.ActiveTime,'seconds').as('milliseconds')).format('HH:mm:ss'),
-       EntityTime: moment.utc(moment.duration(item.EntityTime,'seconds').as('milliseconds')).format('HH:mm:ss')})),
+    () =>
+      report.map((item, index) => ({
+        ...item,
+        id: index + 1,
+        name: item.name,
+        team: item.team,
+        date: moment(item.createdAt).format("DD MM YYYY"),
+        TotalTime: moment
+          .utc(moment.duration(item.TotalTime, "seconds").as("milliseconds"))
+          .format("HH:mm:ss"),
+        ActiveTime: moment
+          .utc(moment.duration(item.ActiveTime, "seconds").as("milliseconds"))
+          .format("HH:mm:ss"),
+        EntityTime: moment
+          .utc(moment.duration(item.EntityTime, "seconds").as("milliseconds"))
+          .format("HH:mm:ss"),
+      })),
     [report]
-  )
+  );
 
- 
   return (
     <DashboardLayout>
       <DashboardNavbar />
@@ -171,12 +185,15 @@ function Report() {
                       >
                         <option aria-label="None" />
                         <optgroup label="CV">
-                          <option value="Dumbeldore">Dumbeldore</option>
-                          <option value="Annatel">Cv</option>
+                          <option value="Dumbledore">Dumbledore</option>
+                          <option value="Annotell">Annotell</option>
+                          <option value="Lane">Lane</option>
+                          <option value="Pomelo">Pomelo</option>
                         </optgroup>
                         <optgroup label="NLP">
-                          <option value="Nlp1">nlp1</option>
-                          <option value="nlp1">nlp 1</option>
+                          <option value="Nala">Nala</option>
+                          <option value="Lime">Lime</option>
+                          <option value="Dragon">Dragon</option>
                         </optgroup>
                       </Select>
                     </FormControl>
@@ -236,7 +253,7 @@ function Report() {
                   </MDTypography>
                 </MDBox>
                 <MDBox pt={3}>
-                  <Box sx={{ height: 700, width: "100%" ,display: 'flex'}}>
+                  <Box sx={{ height: 700, width: "100%", display: "flex" }}>
                     <DataGrid
                       rows={rows}
                       columns={columns}

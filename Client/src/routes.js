@@ -46,7 +46,7 @@ import SignIn from "layouts/authentication/sign-in";
 import SignUp from "layouts/authentication/sign-up";
 import UserReport from "layouts/UserReport";
 import AdminReport from "layouts/AdminReport";
-import Attandance from "layouts/Attandance";
+import Attendance from "layouts/Attendance";
 
 // @mui icons
 import Icon from "@mui/material/Icon";
@@ -70,11 +70,11 @@ const routes = [
   // },
   {
     type: "collapse",
-    name: "Attandance",
-    key: "Attandance",
+    name: "Attendance",
+    key: "Attendance",
     icon: <Icon fontSize="small">table_view</Icon>,
-    route: "/Attandance",
-    component: <Attandance />,
+    route: "/Attendance",
+    component: <Attendance />,
   },
   {
     type: "collapse",

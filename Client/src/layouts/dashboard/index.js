@@ -201,25 +201,15 @@ function Dashboard() {
                                 >
                                   <option aria-label="None" />
                                   <optgroup label="CV">
-                                    <option value="Dumbeldore">Dumbeldore</option>
-                                    <option value="Annatel">Annatel</option>
-                                    <option value="team1">team1</option>
-                                    <option value="team2">team2</option>
-                                    <option value="team3">team3</option>
-                                    {/* <option value="team4">team4</option>
-                            <option value="team5">team5</option>
-                            <option value="team6">team6</option>
-                            <option value="team7">team7</option> */}
+                                    <option value="Dumbledore">Dumbledore</option>
+                                    <option value="Annotell">Annotell</option>
+                                    <option value="Lane">Lane</option>
+                                    <option value="Pomelo">Pomelo</option>
                                   </optgroup>
                                   <optgroup label="NLP">
-                                    <option value="Nlp1">nlp1</option>
-                                    <option value="team1">team1</option>
-                                    <option value="team2">team2</option>
-                                    <option value="team3">team3</option>
-                                    {/* <option value="team4">team4</option>
-                            <option value="team5">team5</option>
-                            <option value="team6">team6</option>
-                            <option value="team7">team7</option> */}
+                                    <option value="Nala">Nala</option>
+                                    <option value="Lime">Lime</option>
+                                    <option value="Dragon">Dragon</option>
                                   </optgroup>
                                 </Select>
                               </FormControl>
