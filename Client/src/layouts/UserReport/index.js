@@ -1,34 +1,23 @@
 import Card from "@mui/material/Card";
 import Grid from "@mui/material/Grid";
-// import Icon from "@mui/material/Icon";
-// import Tooltip from "@mui/material/Tooltip";
-// import authorsTableData from "layouts/tables/data/authorsTableData";
-// import DataTable from "examples/Tables/DataTable";
-// Material Dashboard 2 React components
 import MDBox from "components/MDBox";
 import MDTypography from "components/MDTypography";
 import MDButton from "components/MDButton";
 import MDInput from "components/MDInput";
-// import { Datatable } from "react-datatable-search-pagination";
-// import MDAvatar from "components/MDAvatar";
 import * as React from "react";
-import { DataGrid } from "@mui/x-data-grid";
+import { DataGrid, GridToolbar } from "@mui/x-data-grid";
 import Box from "@mui/material/Box";
-// import Box from "@mui/material/Box";
-// import { DataGrid } from "@mui/x-data-grid";
-// import InputLabel from "@mui/material/InputLabel";
 import FormControl from "@mui/material/FormControl";
 import Select from "@mui/material/Select";
-import { useState } from "react";
-// import DatePicker from "react-datepicker";
-
-// import required css from library
+import { useState , useMemo } from "react";
 import "react-datepicker/dist/react-datepicker.css";
-// import Team from "layouts/dashboard/Team";
-// import MDInputRoot from "components/MDInput/MDInputRoot";
 import DashboardLayout from "examples/LayoutContainers/DashboardLayout";
 import DashboardNavbar from "examples/Navbars/DashboardNavbar";
 import Footer from "examples/Footer";
+import {useSelector } from 'react-redux';
+import axios from 'axios';
+import moment from 'moment';
+import { useSelect } from "@mui/base";
 
 function Report() {
   // const { columns, rows } = authorsTableData();
@@ -39,7 +28,8 @@ function Report() {
     team: "",
   };
   const [values, setValues] = useState(initialValues);
-
+  const [report,setReport] = useState([]);
+  const empId = useSelector(state=>state.auth.user.empId)
   const handleInputChange = (e) => {
     const { name, value } = e.target;
 
@@ -55,10 +45,15 @@ function Report() {
     const userData = {
       startDate: values.startDate,
       endDate: values.endDate,
-      empname: values.empname,
       team: values.team,
     };
     console.log(userData);
+
+    axios.get('analyst/fetch/user-data/?sDate='+values.startDate+'&eDate='+values.endDate+'&empId='+empId+'&team='+values.team)
+    .then((res)=>{
+      setReport(res.data)
+    })
+    .catch(err=>console.log('Error:'+err))
   };
 
   // tabel report
@@ -84,21 +79,21 @@ function Report() {
       editable: false,
     },
     {
-      field: "activetime",
+      field: "TotalTime",
       headerName: "Active Time",
       // type: 'time',
       width: 150,
       editable: false,
     },
     {
-      field: "workingtime",
+      field: "ActiveTime",
       headerName: "Working Time",
       // type: 'number',
       width: 150,
       editable: false,
     },
     {
-      field: "entitytime",
+      field: "EntityTime",
       headerName: "Entity Time",
       // type: 'number',
       width: 150,
@@ -106,80 +101,16 @@ function Report() {
     },
   ];
 
-  const rows = [
-    {
-      id: 1,
-      name: "Stark",
-      team: "Dumbeldore",
-      date: "10/07/2022",
-      activetime: "08hrs:30mins",
-      workingtime: "04hrs:00mins",
-      entitytime: "04hrs:30mins",
-    },
-    {
-      id: 2,
-      name: "mark",
-      team: "lane",
-      date: "10/07/2022",
-      activetime: "08hrs:30mins",
-      workingtime: "04hrs:00mins",
-      entitytime: "04hrs:30mins",
-    },
-    {
-      id: 3,
-      name: "Stark",
-      team: "cv",
-      date: "10/07/2022",
-      activetime: "08hrs:30mins",
-      workingtime: "04hrs:00mins",
-      entitytime: "04hrs:30mins",
-    },
-    {
-      id: 4,
-      name: "Stark",
-      team: "Nlp",
-      date: "10/07/2022",
-      activetime: "08hrs:30mins",
-      workingtime: "04hrs:00mins",
-      entitytime: "04hrs:30mins",
-    },
-    {
-      id: 5,
-      name: "Stark",
-      team: "Dumbeldore",
-      date: "10/07/2022",
-      activetime: "08hrs:30mins",
-      workingtime: "04hrs:00mins",
-      entitytime: "04hrs:30mins",
-    },
-    {
-      id: 6,
-      name: "Stark",
-      team: "sky",
-      date: "10/07/2022",
-      activetime: "08hrs:30mins",
-      workingtime: "04hrs:00mins",
-      entitytime: "04hrs:30mins",
-    },
-    {
-      id: 7,
-      name: "Stark",
-      team: "moon",
-      date: "10/07/2022",
-      activetime: "08hrs:30mins",
-      workingtime: "04hrs:00mins",
-      entitytime: "04hrs:30mins",
-    },
-    {
-      id: 8,
-      name: "Stark",
-      team: "sun",
-      date: "10/07/2022",
-      activetime: "08hrs:30mins",
-      workingtime: "04hrs:00mins",
-      entitytime: "04hrs:30mins",
-    },
-  ];
+  const rows = useMemo(
+    ()=> report.map((item,index)=>({...item,id: index+1,name: item.name,team: item.team, 
+      date: moment(item.createdAt).format("DD MM YYYY"),
+       TotalTime: moment.utc(moment.duration(item.TotalTime,'seconds').as('milliseconds')).format('HH:mm:ss')
+       ,ActiveTime: moment.utc(moment.duration(item.ActiveTime,'seconds').as('milliseconds')).format('HH:mm:ss'),
+       EntityTime: moment.utc(moment.duration(item.EntityTime,'seconds').as('milliseconds')).format('HH:mm:ss')})),
+    [report]
+  )
+
+ 
   return (
     <DashboardLayout>
       <DashboardNavbar />
@@ -305,7 +236,7 @@ function Report() {
                   </MDTypography>
                 </MDBox>
                 <MDBox pt={3}>
-                  <Box sx={{ height: 700, width: "100%" }}>
+                  <Box sx={{ height: 700, width: "100%" ,display: 'flex'}}>
                     <DataGrid
                       rows={rows}
                       columns={columns}

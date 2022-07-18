@@ -1,5 +1,5 @@
 import { Link } from "react-router-dom";
-import { useState } from "react";
+import { useState ,useEffect } from "react";
 import Card from "@mui/material/Card";
 import Grid from "@mui/material/Grid";
 import FormControl from "@mui/material/FormControl";
@@ -8,13 +8,15 @@ import MDTypography from "components/MDTypography";
 import MDInput from "components/MDInput";
 import MDButton from "components/MDButton";
 import Select from "@mui/material/Select";
-// Authentication layout components
 import CoverLayout from "layouts/authentication/components/CoverLayout";
-// Images
 import bgImage from "assets/images/bg-sign-up-cover.jpeg";
 import InputLabel from "@mui/material/InputLabel";
+import {connect} from 'react-redux';
+import {registerUser} from 'actions/authAction';
+import { useNavigate} from 'react-router-dom';
 
-function Cover() {
+
+function Cover(props) {
   const initialValues = {
     name: "",
     empid: "",
@@ -36,13 +38,14 @@ function Cover() {
     e.preventDefault();
     const userData = {
       name: values.name,
-      empid: values.empid,
+      empId: values.empid,
       role: values.role,
       email: values.email,
       password: values.password,
-      cpassword: values.cpassword,
+      password2: values.cpassword,
     };
     console.log(userData);
+    props.registerUser(userData);
   };
   return (
     <CoverLayout image={bgImage}>
@@ -102,10 +105,10 @@ function Cover() {
                       >
                         <option aria-label="None" />
                         <option value="Analyst">Analyst</option>
-                        <option value="Team Leader">Team Leader</option>
-                        <option value="Project Manager">Project Manager</option>
+                        <option value="Admin">Team Leader</option>
+                        {/* <option value="Project Manager">Project Manager</option>
                         <option value="IT Admin">IT Admin</option>
-                        <option value="HR">HR</option>
+                        <option value="HR">HR</option> */}
                       </Select>
                     </FormControl>
                   </div>
@@ -168,4 +171,11 @@ function Cover() {
     </CoverLayout>
   );
 }
-export default Cover;
+
+const mapStateToProps = state =>({
+  auth: state.auth,
+  errors: state.errors
+})
+
+
+export default connect(mapStateToProps,{registerUser})(Cover);

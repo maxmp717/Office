@@ -74,6 +74,7 @@ export default function Auth() {
 
   return (
     <>
+    {layout === 'dashboard' && (
       <>
         <Sidenav
           color={sidenavColor}
@@ -87,7 +88,9 @@ export default function Auth() {
         <Configurator />
         {configsButton}
       </>
-      {/* {layout === "vr" && <Configurator />} */}
+    )}
+      
+       {layout === "vr" && <Configurator />} 
     </>
   );
 }

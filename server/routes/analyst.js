@@ -36,13 +36,13 @@ router.route('/fetch/src/:min/:max').get((req,res)=>{
     .catch(err=>res.status(400).json('err'+err))
 })
 
-router.route('/fetch/date/').get((req,res)=>{
-    // const sDate = req.query.sDate
-    // const eDate = req.query.eDate
-    // const startDate = new Date(sDate);
-    // const endDate = new Date(eDate);
+router.route('/fetch/user-data/').get((req,res)=>{
+    const sDate = req.query.sDate
+    const eDate = req.query.eDate
+    const empId = req.query.empId
+    const team = req.query.team
 
-    Analyst.find({createdAt:{$gte:new Date("2022-06-29"),$lte: new Date("2022-07-23")}})
+    Analyst.find({empId:empId,team:team,createdAt:{$gte:new Date(sDate),$lte: new Date(eDate)}})
     .then(analyst=>res.json(analyst))
     .catch(err=>res.status(400).json('err'+err))
 })
@@ -54,6 +54,16 @@ router.route('/fetch/report/').get((req,res)=>{
     const team = req.query.team
 
     Analyst.find({name:name,team:team,createdAt:{$gte:new Date(sDate),$lte: new Date(eDate)}})
+    .then(analyst=>res.json(analyst))
+    .catch(err=>res.status(400).json('err'+err))
+})
+
+router.route('/fetch/report/team/').get((req,res)=>{
+    const sDate = req.query.sDate
+    const eDate = req.query.eDate
+    const team = req.query.team
+
+    Analyst.find({team:team,createdAt:{$gte:new Date(sDate),$lte: new Date(eDate)}})
     .then(analyst=>res.json(analyst))
     .catch(err=>res.status(400).json('err'+err))
 })

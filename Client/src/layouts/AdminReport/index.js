@@ -30,7 +30,7 @@ function AdminReport() {
   const [name,setName] = useState([]);
   const [empName,setEmpName] = useState(null);
   const [report,setReport] = useState([]);
-  const [r,setR] = useState([])
+
   const handleInputChange = (e) => {
     const { name, value } = e.target;
 
@@ -58,31 +58,28 @@ function AdminReport() {
     const name  = empName;
     const team = values.team;
 
+    if(name !== ''){
+      axios.get('analyst/fetch/report/team/?sDate='+sDate+'&eDate='+eDate+'&team='+team)
+      .then((res)=>{
+        console.log(res.data)
+        setReport(res.data)
+      })
+      .catch(err=>console.log('Error:'+err))
+    
+  }
+  else{
     axios.get('analyst/fetch/report/?sDate='+sDate+'&eDate='+eDate+'&name='+name+'&team='+team)
     .then((res)=>{
       console.log(res.data)
       setReport(res.data)
     })
     .catch(err=>console.log('Error:'+err))
-
-    
-    console.log(r)
+  }
   };
 
   useEffect(()=>{
     userName();
   },[])    
-
-
-
-  useEffect(() =>{
-    const row = [{
-      id: report.map((item,index)=>{
-        return index
-      })
-    }]
-    console.log(row)
-  },[report])
 
   const userName = () =>{
     axios.get('authentication/user/users')
@@ -144,80 +141,7 @@ function AdminReport() {
        EntityTime: moment.utc(moment.duration(item.EntityTime,'seconds').as('milliseconds')).format('HH:mm:ss')})),
     [report]
   );
-  const rows = [
-    {
-      id: 1,
-      name: "Stark",
-      team: "Dumbeldore",
-      date: "10/07/2022",
-      activetime: "08hrs:30mins",
-      workingtime: "04hrs:00mins",
-      entitytime: "04hrs:30mins",
-    },
-    {
-      id: 2,
-      name: "mark",
-      team: "lane",
-      date: "10/07/2022",
-      activetime: "08hrs:30mins",
-      workingtime: "04hrs:00mins",
-      entitytime: "04hrs:30mins",
-    },
-    {
-      id: 3,
-      name: "Stark",
-      team: "cv",
-      date: "10/07/2022",
-      activetime: "08hrs:30mins",
-      workingtime: "04hrs:00mins",
-      entitytime: "04hrs:30mins",
-    },
-    {
-      id: 4,
-      name: "Stark",
-      team: "Nlp",
-      date: "10/07/2022",
-      activetime: "08hrs:30mins",
-      workingtime: "04hrs:00mins",
-      entitytime: "04hrs:30mins",
-    },
-    {
-      id: 5,
-      name: "Stark",
-      team: "Dumbeldore",
-      date: "10/07/2022",
-      activetime: "08hrs:30mins",
-      workingtime: "04hrs:00mins",
-      entitytime: "04hrs:30mins",
-    },
-    {
-      id: 6,
-      name: "Stark",
-      team: "sky",
-      date: "10/07/2022",
-      activetime: "08hrs:30mins",
-      workingtime: "04hrs:00mins",
-      entitytime: "04hrs:30mins",
-    },
-    {
-      id: 7,
-      name: "Stark",
-      team: "moon",
-      date: "10/07/2022",
-      activetime: "08hrs:30mins",
-      workingtime: "04hrs:00mins",
-      entitytime: "04hrs:30mins",
-    },
-    {
-      id: 8,
-      name: "Stark",
-      team: "sun",
-      date: "10/07/2022",
-      activetime: "08hrs:30mins",
-      workingtime: "04hrs:00mins",
-      entitytime: "04hrs:30mins",
-    },
-  ];
+  
   return (
     <DashboardLayout>
       <DashboardNavbar />

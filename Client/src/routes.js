@@ -109,12 +109,12 @@ const routes = [
     component: <AdminReport />,
   },
   {
-    type: "collapse",
-    name: "Notifications",
-    key: "notifications",
-    icon: <Icon fontSize="small">notifications</Icon>,
-    route: "/notifications",
-    component: <Notifications />,
+    // type: "collapse",
+    // name: "Notifications",
+    // key: "notifications",
+    // icon: <Icon fontSize="small">notifications</Icon>,
+    // route: "/notifications",
+    // component: <Notifications />,
   },
   {
     type: "collapse",
