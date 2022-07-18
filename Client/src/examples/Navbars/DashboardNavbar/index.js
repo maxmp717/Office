@@ -43,17 +43,18 @@ import {
 } from "context";
 import MDButton from "components/MDButton";
 
-//Redux functions
-import {logoutUser} from 'actions/authAction';
-import {connect,useSelector} from 'react-redux';
-function DashboardNavbar(props,{ absolute, light, isMini }) {
+// Redux functions
+import { logoutUser } from "actions/authAction";
+import { connect, useSelector } from "react-redux";
+
+function DashboardNavbar(props, { absolute, light, isMini }) {
   const [navbarType, setNavbarType] = useState();
   const [controller, dispatch] = useMaterialUIController();
   // eslint-disable-next-line no-unused-vars
   const { miniSidenav, transparentNavbar, fixedNavbar, darkMode } = controller;
   const [openMenu, setOpenMenu] = useState(false);
   const route = useLocation().pathname.split("/").slice(1);
-  const mail = useSelector(state=>state.auth.user.email);
+  const mail = useSelector((state) => state.auth.user.email);
   useEffect(() => {
     // Setting the navbar type
     if (fixedNavbar) {
@@ -85,11 +86,11 @@ function DashboardNavbar(props,{ absolute, light, isMini }) {
   const handleOpenMenu = (event) => setOpenMenu(event.currentTarget);
   const handleCloseMenu = () => setOpenMenu(false);
 
-  //logout Function
-  const onOut = e =>{
+  // logout Function
+  const onOut = (e) => {
     e.preventDefault();
     props.logoutUser();
-  }
+  };
 
   // Render the notifications menu
   const renderMenu = () => (
@@ -205,8 +206,8 @@ DashboardNavbar.propTypes = {
   isMini: PropTypes.bool,
 };
 
-const mapStateToProps = state =>({
-  auth: state.auth
-})
+const mapStateToProps = (state) => ({
+  auth: state.auth,
+});
 
-export default connect(mapStateToProps,{logoutUser})(DashboardNavbar);
+export default connect(mapStateToProps, { logoutUser })(DashboardNavbar);

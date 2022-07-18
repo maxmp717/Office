@@ -15,16 +15,15 @@ import ComplexStatisticsCard from "examples/Cards/StatisticsCards/ComplexStatist
 import papa from "papaparse";
 import convert from "convert-seconds-to-human";
 import { useState, useEffect } from "react";
-import {useSelector} from 'react-redux';
-import axios from 'axios';
-
+import { useSelector } from "react-redux";
+import axios from "axios";
 
 function Dashboard() {
   const [data, setData] = useState([]);
   const [seconds, setSeconds] = useState({ TotalTime: "", ActiveTime: "", EntityTime: "" });
-  const [timeData,setTimeData] = useState({TotalTime:'',ActiveTime:'',EntityTime:''});
-  const name = useSelector(state=>state.auth.user.name);
-  const empId = useSelector(state => state.auth.user.empId);
+  const [timeData, setTimeData] = useState({ TotalTime: "", ActiveTime: "", EntityTime: "" });
+  const name = useSelector((state) => state.auth.user.name);
+  const empId = useSelector((state) => state.auth.user.empId);
   const initialValues = {
     team: "",
   };
@@ -39,7 +38,6 @@ function Dashboard() {
     });
   };
 
-  
   // file handling
   const handlingFileUpload = (e) => {
     const { files } = e.target;
@@ -59,17 +57,18 @@ function Dashboard() {
   const handleSubmit = (e) => {
     e.preventDefault();
     const userData = {
-      name: name,
-      empId: empId,
+      name,
+      empId,
       team: values.team,
       TotalTime: timeData.TotalTime,
       ActiveTime: timeData.ActiveTime,
-      EntityTime: timeData.EntityTime
+      EntityTime: timeData.EntityTime,
     };
-    
-    axios.post("/analyst/add",userData)
-    .then(()=>console.log('Success'))
-    .catch(err=>console.log('Errors:'+err))
+
+    axios
+      .post("/analyst/add", userData)
+      .then(() => console.log("Success"))
+      .catch((err) => console.log(`Errors:${err}`));
 
     console.log(userData);
   };
@@ -103,8 +102,8 @@ function Dashboard() {
     setTimeData({
       TotalTime: totalTime,
       ActiveTime: activeTime,
-      EntityTime: entityTime
-    })
+      EntityTime: entityTime,
+    });
   }, [data]);
 
   return (

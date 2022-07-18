@@ -1,43 +1,46 @@
 import { Link } from "react-router-dom";
-
 import { useState } from "react";
-// @mui material components
 import Card from "@mui/material/Card";
-import Checkbox from "@mui/material/Checkbox";
-
-// Material Dashboard 2 React components
+import Grid from "@mui/material/Grid";
+import FormControl from "@mui/material/FormControl";
 import MDBox from "components/MDBox";
 import MDTypography from "components/MDTypography";
 import MDInput from "components/MDInput";
 import MDButton from "components/MDButton";
-
+import Select from "@mui/material/Select";
 // Authentication layout components
 import CoverLayout from "layouts/authentication/components/CoverLayout";
-
 // Images
 import bgImage from "assets/images/bg-sign-up-cover.jpeg";
+import InputLabel from "@mui/material/InputLabel";
 
 function Cover() {
   const initialValues = {
     name: "",
+    empid: "",
+    role: "",
     email: "",
     password: "",
+    cpassword: "",
   };
   const [values, setValues] = useState(initialValues);
   const handleInputChange = (e) => {
     const { name, value } = e.target;
-
     setValues({
       ...values,
       [name]: value,
     });
   };
+  // const [show, setShow] = useState(false);
   const handleSubmit = (e) => {
     e.preventDefault();
     const userData = {
       name: values.name,
+      empid: values.empid,
+      role: values.role,
       email: values.email,
       password: values.password,
+      cpassword: values.cpassword,
     };
     console.log(userData);
   };
@@ -68,55 +71,76 @@ function Cover() {
               <MDInput
                 type="text"
                 label="Name"
-                variant="standard"
                 value={values.name}
                 onChange={handleInputChange}
                 name="name"
                 fullWidth
               />
             </MDBox>
+            <MDBox mt={2} mb={2} display="flex" justifycontent="space-evenly" alignItems="center">
+              <Grid container spacing={2}>
+                <Grid item xs={6}>
+                  <MDInput
+                    type="number"
+                    value={values.empid}
+                    onChange={handleInputChange}
+                    name="empid"
+                    label="Employee Number"
+                  />
+                </Grid>
+                <Grid item xs={4}>
+                  <div>
+                    <FormControl sx={{ minWidth: 160 }}>
+                      <InputLabel htmlFor="grouped-native-select">Role</InputLabel>
+                      <Select
+                        native
+                        id="grouped-native-select"
+                        label="Role"
+                        name="role"
+                        value={values.role}
+                        onChange={handleInputChange}
+                      >
+                        <option aria-label="None" />
+                        <option value="Analyst">Analyst</option>
+                        <option value="Team Leader">Team Leader</option>
+                        <option value="Project Manager">Project Manager</option>
+                        <option value="IT Admin">IT Admin</option>
+                        <option value="HR">HR</option>
+                      </Select>
+                    </FormControl>
+                  </div>
+                </Grid>
+              </Grid>
+            </MDBox>
             <MDBox mb={2}>
               <MDInput
                 type="email"
-                label="Email"
-                variant="standard"
                 value={values.email}
                 onChange={handleInputChange}
                 name="email"
+                label="Email"
                 fullWidth
               />
             </MDBox>
             <MDBox mb={2}>
               <MDInput
                 type="password"
-                label="Password"
-                // variant="standard"
                 value={values.password}
                 onChange={handleInputChange}
                 name="password"
+                label="Password"
                 fullWidth
               />
             </MDBox>
-            <MDBox display="flex" alignItems="center" ml={-1}>
-              <Checkbox />
-              <MDTypography
-                variant="button"
-                fontWeight="regular"
-                color="text"
-                sx={{ cursor: "pointer", userSelect: "none", ml: -1 }}
-              >
-                &nbsp;&nbsp;I agree the&nbsp;
-              </MDTypography>
-              <MDTypography
-                component="a"
-                href="#"
-                variant="button"
-                fontWeight="bold"
-                color="info"
-                textGradient
-              >
-                Terms and Conditions
-              </MDTypography>
+            <MDBox mb={2}>
+              <MDInput
+                type="password"
+                label="Confirm Password"
+                value={values.cpassword}
+                onChange={handleInputChange}
+                name="cpassword"
+                fullWidth
+              />
             </MDBox>
             <MDBox mt={4} mb={1}>
               <MDButton variant="gradient" type="submit" color="info" fullWidth>
@@ -144,5 +168,4 @@ function Cover() {
     </CoverLayout>
   );
 }
-
 export default Cover;
