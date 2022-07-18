@@ -47,6 +47,16 @@ router.route('/fetch/date/').get((req,res)=>{
     .catch(err=>res.status(400).json('err'+err))
 })
 
+router.route('/fetch/report/').get((req,res)=>{
+    const sDate = req.query.sDate
+    const eDate = req.query.eDate
+    const name = req.query.name
+    const team = req.query.team
+
+    Analyst.find({name:name,team:team,createdAt:{$gte:new Date(sDate),$lte: new Date(eDate)}})
+    .then(analyst=>res.json(analyst))
+    .catch(err=>res.status(400).json('err'+err))
+})
 
 router.route('/fetch').get((req,res)=>{
     Analyst.find(req.query)

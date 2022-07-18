@@ -1,26 +1,8 @@
-// @mui material components
 import Grid from "@mui/material/Grid";
-
-// Material Dashboard 2 React components
 import MDBox from "components/MDBox";
-
-// Material Dashboard 2 React example components
 import DashboardLayout from "examples/LayoutContainers/DashboardLayout";
 import DashboardNavbar from "examples/Navbars/DashboardNavbar";
 import Footer from "examples/Footer";
-// import ReportsBarChart from "examples/Charts/BarCharts/ReportsBarChart";
-// import ReportsLineChart from "examples/Charts/LineCharts/ReportsLineChart";
-// import ComplexStatisticsCard from "examples/Cards/StatisticsCards/ComplexStatisticsCard";
-
-// Data
-// import reportsBarChartData from "layouts/dashboard/data/reportsBarChartData";
-// import reportsLineChartData from "layouts/dashboard/data/reportsLineChartData";
-
-// Dashboard components
-// import Projects from "layouts/dashboard/components/Projects";
-// import OrdersOverview from "layouts/dashboard/components/OrdersOverview";
-// import Time from "layouts/dashboard/Time";
-// import Grid from "@mui/material/Grid";
 import Card from "@mui/material/Card";
 import MDButton from "components/MDButton/index";
 import MDInput from "components/MDInput";
@@ -28,18 +10,21 @@ import * as React from "react";
 import InputLabel from "@mui/material/InputLabel";
 import FormControl from "@mui/material/FormControl";
 import Select from "@mui/material/Select";
-// import MDBox from "components/MDBox";
 import MDTypography from "components/MDTypography";
 import ComplexStatisticsCard from "examples/Cards/StatisticsCards/ComplexStatisticsCard";
 import papa from "papaparse";
 import convert from "convert-seconds-to-human";
 import { useState, useEffect } from "react";
+import {useSelector} from 'react-redux';
+import axios from 'axios';
+
 
 function Dashboard() {
-  // const { sales, tasks } = reportsLineChartData;
   const [data, setData] = useState([]);
   const [seconds, setSeconds] = useState({ TotalTime: "", ActiveTime: "", EntityTime: "" });
-
+  const [timeData,setTimeData] = useState({TotalTime:'',ActiveTime:'',EntityTime:''});
+  const name = useSelector(state=>state.auth.user.name);
+  const empId = useSelector(state => state.auth.user.empId);
   const initialValues = {
     team: "",
   };
@@ -53,13 +38,8 @@ function Dashboard() {
       [name]: value,
     });
   };
-  const handleSubmit = (e) => {
-    e.preventDefault();
-    const userData = {
-      team: values.team,
-    };
-    console.log(userData);
-  };
+
+  
   // file handling
   const handlingFileUpload = (e) => {
     const { files } = e.target;
@@ -73,6 +53,25 @@ function Dashboard() {
         return results.data;
       },
     });
+  };
+
+  // Upload Data
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    const userData = {
+      name: name,
+      empId: empId,
+      team: values.team,
+      TotalTime: timeData.TotalTime,
+      ActiveTime: timeData.ActiveTime,
+      EntityTime: timeData.EntityTime
+    };
+    
+    axios.post("/analyst/add",userData)
+    .then(()=>console.log('Success'))
+    .catch(err=>console.log('Errors:'+err))
+
+    console.log(userData);
   };
 
   useEffect(() => {
@@ -101,6 +100,11 @@ function Dashboard() {
       ActiveTime: active,
       EntityTime: entity,
     });
+    setTimeData({
+      TotalTime: totalTime,
+      ActiveTime: activeTime,
+      EntityTime: entityTime
+    })
   }, [data]);
 
   return (

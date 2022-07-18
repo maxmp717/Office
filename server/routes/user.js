@@ -95,4 +95,10 @@ router.route('/login').post((req,res)=>{
 
 })
 
+router.route('/users').get((req,res)=>{
+    User.find({},'name')
+    .then(user=>res.json(user))
+    .catch((err)=>res.status(400).json('Error:'+err))
+})
+
 export default router

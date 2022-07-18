@@ -8,22 +8,29 @@ import MDTypography from "components/MDTypography";
 import MDButton from "components/MDButton";
 import MDInput from "components/MDInput";
 import * as React from "react";
-import { DataGrid } from "@mui/x-data-grid";
+import { DataGrid , GridToolbar} from "@mui/x-data-grid";
 import Box from "@mui/material/Box";
 import FormControl from "@mui/material/FormControl";
 import Select from "@mui/material/Select";
-import { useState } from "react";
+import { useState, useEffect , useMemo} from "react";
 import "react-datepicker/dist/react-datepicker.css";
+import TextField from '@mui/material/TextField';
+import Autocomplete from '@mui/material/Autocomplete';
+import axios from 'axios';
+import moment from 'moment';
+import { height } from "@mui/system";
 
 function AdminReport() {
   const initialValues = {
     startDate: "",
     endDate: "",
-    empname: "",
     team: "",
   };
   const [values, setValues] = useState(initialValues);
-
+  const [name,setName] = useState([]);
+  const [empName,setEmpName] = useState(null);
+  const [report,setReport] = useState([]);
+  const [r,setR] = useState([])
   const handleInputChange = (e) => {
     const { name, value } = e.target;
 
@@ -32,6 +39,8 @@ function AdminReport() {
       [name]: value,
     });
   };
+  const handleChange = (event,value)=> setEmpName(value)
+
 
   const [show, setShow] = useState(false);
   const handleSubmit = (e) => {
@@ -39,15 +48,53 @@ function AdminReport() {
     const userData = {
       startDate: values.startDate,
       endDate: values.endDate,
-      empname: values.empname,
+      empname: empName,
       team: values.team,
     };
     console.log(userData);
+    
+    const sDate = values.startDate;
+    const eDate = values.endDate;
+    const name  = empName;
+    const team = values.team;
+
+    axios.get('analyst/fetch/report/?sDate='+sDate+'&eDate='+eDate+'&name='+name+'&team='+team)
+    .then((res)=>{
+      console.log(res.data)
+      setReport(res.data)
+    })
+    .catch(err=>console.log('Error:'+err))
+
+    
+    console.log(r)
   };
+
+  useEffect(()=>{
+    userName();
+  },[])    
+
+
+
+  useEffect(() =>{
+    const row = [{
+      id: report.map((item,index)=>{
+        return index
+      })
+    }]
+    console.log(row)
+  },[report])
+
+  const userName = () =>{
+    axios.get('authentication/user/users')
+    .then((res)=>{
+      setName(res.data)
+    })
+    console.log(name)
+  }
 
   // tabel report
   const columns = [
-    { field: "id", headerName: "ID", width: 80 },
+    {field:'id', headerName:'ID', width: 80},
     {
       field: "name",
       headerName: "Name",
@@ -68,28 +115,35 @@ function AdminReport() {
       editable: false,
     },
     {
-      field: "activetime",
+      field: "TotalTime",
       headerName: "Active Time",
       // type: 'time',
       width: 150,
       editable: false,
     },
     {
-      field: "workingtime",
+      field: "ActiveTime",
       headerName: "Working Time",
       // type: 'number',
       width: 150,
       editable: false,
     },
     {
-      field: "entitytime",
+      field: "EntityTime",
       headerName: "Entity Time",
       // type: 'number',
       width: 150,
       editable: false,
     },
   ];
-
+  const row = useMemo(
+    ()=> report.map((item,index)=>({...item,id: index+1,name: item.name,team: item.team, 
+      date: moment(item.createdAt).format("DD MM YYYY"),
+       TotalTime: moment.utc(moment.duration(item.TotalTime,'seconds').as('milliseconds')).format('HH:mm:ss')
+       ,ActiveTime: moment.utc(moment.duration(item.ActiveTime,'seconds').as('milliseconds')).format('HH:mm:ss'),
+       EntityTime: moment.utc(moment.duration(item.EntityTime,'seconds').as('milliseconds')).format('HH:mm:ss')})),
+    [report]
+  );
   const rows = [
     {
       id: 1,
@@ -240,12 +294,15 @@ function AdminReport() {
                   <MDTypography variant="h6" fontWeight="medium">
                     Name
                   </MDTypography>
-                  <MDInput
-                    type="text"
-                    name="empname"
-                    value={values.empname}
-                    onChange={handleInputChange}
-                  />
+                  <Autocomplete
+        id="free-solo-demo"
+        freeSolo
+        options={name.map((option) => option.name)}
+      
+        onChange={handleChange}
+        renderInput={(params) => <TextField {...params} />}
+        sx={{ width: '200px' , height: '10px'}}
+      />
                 </Grid>
                 {/* </Grid> */}
               </Grid>
@@ -291,12 +348,13 @@ function AdminReport() {
                 /> */}
                   <Box sx={{ height: 700, width: "100%" }}>
                     <DataGrid
-                      rows={rows}
+                      rows={row}
                       columns={columns}
                       pageSize={10}
                       rowsPerPageOptions={[10]}
                       checkboxSelection
                       disableSelectionOnClick
+                      components={{ Toolbar: GridToolbar }}
                     />
                   </Box>
                 </MDBox>

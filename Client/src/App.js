@@ -7,7 +7,7 @@ import SignUp from "layouts/authentication/sign-up";
 import Protected from "layouts/authentication/Producted";
 import { useSelector } from 'react-redux';
 import jwt_decode from 'jwt-decode';
-// import {setCurrentUser,logoutUser} from 'actions/';
+import {setCurrentUser,logoutUser} from 'actions/authAction';
 import store from './store';
 import setAuthToken from './utils/setAuthToken';
 import Auth from './Auth'
