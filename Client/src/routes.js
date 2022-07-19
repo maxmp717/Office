@@ -37,7 +37,7 @@ const routes = [
   {
     type: "collapse",
     name: "Attendance",
-    key: "Attendance",
+    key: "attendance",
     icon: <Icon fontSize="small">table_view</Icon>,
     route: "/attendance",
     component: <Attendance />,
@@ -46,7 +46,7 @@ const routes = [
   {
     type: "collapse",
     name: "UserReport",
-    key: "UserReport",
+    key: "user-report",
     icon: <Icon fontSize="small">receipt_long</Icon>,
     route: "/user-report",
     component: <UserReport />,
@@ -64,7 +64,7 @@ const routes = [
   {
     type: "collapse",
     name: "AdminReport",
-    key: "AdminReport",
+    key: "admin-report",
     icon: <Icon fontSize="small">receipt_long</Icon>,
     route: "/admin-report",
     component: <AdminReport />,
