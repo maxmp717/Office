@@ -5,7 +5,10 @@ const Schema = mongoose.Schema
 
 const analystSchema = new Schema({
     name: String,
-    team: String,
+    team: {
+        type: String,
+        required: true
+      },
     empId: String,
     TotalTime: Number,
     ActiveTime: Number,

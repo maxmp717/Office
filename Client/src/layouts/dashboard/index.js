@@ -17,9 +17,13 @@ import convert from "convert-seconds-to-human";
 import { useState, useEffect } from "react";
 import { useSelector } from "react-redux";
 import axios from "axios";
+import {ToastContainer, toast} from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.min.css';
+
 
 function Dashboard() {
   const [data, setData] = useState([]);
+  const [disable,setDisable] = useState(true)
   const [seconds, setSeconds] = useState({ TotalTime: "", ActiveTime: "", EntityTime: "" });
   const [timeData, setTimeData] = useState({ TotalTime: "", ActiveTime: "", EntityTime: "" });
   const name = useSelector((state) => state.auth.user.name);
@@ -28,7 +32,6 @@ function Dashboard() {
     team: "",
   };
   const [values, setValues] = useState(initialValues);
-
   const handleInputChange = (e) => {
     const { name, value } = e.target;
 
@@ -38,6 +41,7 @@ function Dashboard() {
     });
   };
 
+  
   // file handling
   const handlingFileUpload = (e) => {
     const { files } = e.target;
@@ -51,6 +55,8 @@ function Dashboard() {
         return results.data;
       },
     });
+    setDisable(!disable)
+    toast.success('Successfully Data Submitted 👌')
   };
 
   // Upload Data
@@ -67,8 +73,8 @@ function Dashboard() {
 
     axios
       .post("/analyst/add", userData)
-      .then(() => console.log("Success"))
-      .catch((err) => console.log(`Errors:${err}`));
+      .then(() => toast.success('Successfully Data Submitted 👌'))
+      .catch((err) => toast.error('Try Again Followed Error Acquired: '+err+'☹️'));
 
     console.log(userData);
   };
@@ -107,7 +113,7 @@ function Dashboard() {
   }, [data]);
 
   return (
-    <DashboardLayout>
+    <><DashboardLayout>
       <DashboardNavbar />
       <MDBox mt={3} mb={3}>
         <Grid container spacing={3} justifyContent="center">
@@ -124,9 +130,8 @@ function Dashboard() {
                       percentage={{
                         color: "success",
                         amount: "",
-                        label: "Your over all Active page time",
-                      }}
-                    />
+                        label: "Your over all Active page time"
+                      }} />
                   </MDBox>
                 </Grid>
                 <Grid item xs={12} md={6} lg={4}>
@@ -138,9 +143,8 @@ function Dashboard() {
                       percentage={{
                         color: "success",
                         amount: "",
-                        label: "your work portal time",
-                      }}
-                    />
+                        label: "your work portal time"
+                      }} />
                   </MDBox>
                 </Grid>
                 <Grid item xs={12} md={6} lg={4}>
@@ -153,9 +157,8 @@ function Dashboard() {
                       percentage={{
                         color: "success",
                         amount: "",
-                        label: "Your over all  Entity Time",
-                      }}
-                    />
+                        label: "Your over all  Entity Time"
+                      }} />
                   </MDBox>
                 </Grid>
               </Grid>
@@ -226,7 +229,7 @@ function Dashboard() {
                           justifyContent="end"
                           alignItems="center"
                         >
-                          <MDButton type="submit" color="success">
+                          <MDButton type="submit" color="success" disabled={disable}>
                             Upload!
                           </MDButton>
                         </MDBox>
@@ -240,7 +243,7 @@ function Dashboard() {
         </Grid>
       </MDBox>
       <Footer />
-    </DashboardLayout>
+    </DashboardLayout><ToastContainer /></>
   );
 }
 

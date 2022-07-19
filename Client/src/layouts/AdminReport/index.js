@@ -56,10 +56,10 @@ function AdminReport() {
     const eDate = values.endDate;
     const name = empName;
     const { team } = values;
-
-    if (name !== "") {
+    console.log(name !== '')
+    if (name !== null) {
       axios
-        .get(`analyst/fetch/report/team/?sDate=${sDate}&eDate=${eDate}&team=${team}`)
+        .get(`analyst/fetch/report/?sDate=${sDate}&eDate=${eDate}&name=${name}&team=${team}`)
         .then((res) => {
           console.log(res.data);
           setReport(res.data);
@@ -67,7 +67,7 @@ function AdminReport() {
         .catch((err) => console.log(`Error:${err}`));
     } else {
       axios
-        .get(`analyst/fetch/report/?sDate=${sDate}&eDate=${eDate}&name=${name}&team=${team}`)
+        .get(`analyst/fetch/report/team/?sDate=${sDate}&eDate=${eDate}&team=${team}`)
         .then((res) => {
           console.log(res.data);
           setReport(res.data);
