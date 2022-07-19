@@ -9,6 +9,8 @@ router.route('/').get((req,res)=>{
     .catch(err=>res.status(400).json('Error:'+err))
 })
 
+//Add new Analyst Data
+
 router.route('/add').post((req,res)=>{
     // const data = req.body
     const name = req.body.name
@@ -36,6 +38,8 @@ router.route('/fetch/src/:min/:max').get((req,res)=>{
     .catch(err=>res.status(400).json('err'+err))
 })
 
+//Fetch individual user Data for users
+
 router.route('/fetch/user-data/').get((req,res)=>{
     const sDate = req.query.sDate
     const eDate = req.query.eDate
@@ -46,6 +50,8 @@ router.route('/fetch/user-data/').get((req,res)=>{
     .then(analyst=>res.json(analyst))
     .catch(err=>res.status(400).json('err'+err))
 })
+
+//Fetch report of user particular team
 
 router.route('/fetch/report/').get((req,res)=>{
     const sDate = req.query.sDate
@@ -58,12 +64,25 @@ router.route('/fetch/report/').get((req,res)=>{
     .catch(err=>res.status(400).json('err'+err))
 })
 
+//Fetch report by team
+
 router.route('/fetch/report/team/').get((req,res)=>{
     const sDate = req.query.sDate
     const eDate = req.query.eDate
     const team = req.query.team
 
     Analyst.find({team:team,createdAt:{$gte:new Date(sDate),$lte: new Date(eDate)}})
+    .then(analyst=>res.json(analyst))
+    .catch(err=>res.status(400).json('err'+err))
+})
+
+//Fetch report by user 
+router.route('/fetch/report/user/').get((req,res)=>{
+    const sDate = req.query.sDate
+    const eDate = req.query.eDate
+    const name = req.query.name
+
+    Analyst.find({name:name,createdAt:{$gte:new Date(sDate),$lte: new Date(eDate)}})
     .then(analyst=>res.json(analyst))
     .catch(err=>res.status(400).json('err'+err))
 })

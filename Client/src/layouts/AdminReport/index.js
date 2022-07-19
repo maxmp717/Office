@@ -40,8 +40,6 @@ function AdminReport() {
     });
   };
   const handleChange = (event, value) => setEmpName(value);
-
-  const [show, setShow] = useState(false);
   const handleSubmit = (e) => {
     e.preventDefault();
     const userData = {
@@ -57,17 +55,25 @@ function AdminReport() {
     const name = empName;
     const { team } = values;
     console.log(name !== '')
-    if (name !== null) {
-      axios
-        .get(`analyst/fetch/report/?sDate=${sDate}&eDate=${eDate}&name=${name}&team=${team}`)
+    if (name === null) {
+        axios
+        .get(`analyst/fetch/report/team/?sDate=${sDate}&eDate=${eDate}&team=${team}`)
         .then((res) => {
           console.log(res.data);
           setReport(res.data);
         })
         .catch((err) => console.log(`Error:${err}`));
-    } else {
+    } else if (team === '') {
       axios
-        .get(`analyst/fetch/report/team/?sDate=${sDate}&eDate=${eDate}&team=${team}`)
+        .get(`analyst/fetch/report/user/?sDate=${sDate}&eDate=${eDate}&name=${name}`)
+        .then((res) => {
+          console.log(res.data);
+          setReport(res.data);
+        })
+        .catch((err) => console.log(`Error:${err}`));
+    } else{
+      axios
+        .get(`analyst/fetch/report/?sDate=${sDate}&eDate=${eDate}&name=${name}&team=${team}`)
         .then((res) => {
           console.log(res.data);
           setReport(res.data);
@@ -138,7 +144,7 @@ function AdminReport() {
         id: index + 1,
         name: item.name,
         team: item.team,
-        date: moment(item.createdAt).format("DD MM YYYY"),
+        date: moment(item.createdAt).format("DD-MM-YYYY"),
         TotalTime: moment
           .utc(moment.duration(item.TotalTime, "seconds").as("milliseconds"))
           .format("HH:mm:ss"),
@@ -252,9 +258,7 @@ function AdminReport() {
                     <MDButton
                       variant="gradient"
                       color="success"
-                      type="submit"
-                      onClick={() => setShow(!show)}
-                    >
+                      type="submit" >
                       &nbsp;Search
                     </MDButton>
                   </MDBox>
@@ -273,7 +277,7 @@ function AdminReport() {
             </MDBox>
           </MDBox>
         </Card>
-        {show ? (
+      
           <MDBox pt={8}>
             <Grid item xs={12}>
               <Card>
@@ -315,7 +319,6 @@ function AdminReport() {
               </Card>
             </Grid>
           </MDBox>
-        ) : null}
       </Grid>
       <Footer />
     </DashboardLayout>

@@ -55,6 +55,8 @@ function DashboardNavbar(props, { absolute, light, isMini }) {
   const [openMenu, setOpenMenu] = useState(false);
   const route = useLocation().pathname.split("/").slice(1);
   const mail = useSelector((state) => state.auth.user.email);
+  const name = useSelector((state)=>state.auth.user.name);
+  const img = "https://ui-avatars.com/api/?name="+name+'&background=random';
   useEffect(() => {
     // Setting the navbar type
     if (fixedNavbar) {
@@ -180,7 +182,7 @@ function DashboardNavbar(props, { absolute, light, isMini }) {
                 variant="contained"
                 onClick={handleOpenMenu}
               >
-                <MDAvatar src={fav1} alt="Thankyou" size="md" />
+                <MDAvatar src={img} alt="Thankyou" size="md" />
                 {/* <Icon sx={iconsStyle}>account_circle</Icon> */}
               </IconButton>
               {renderMenu()}

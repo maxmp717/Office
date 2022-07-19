@@ -13,6 +13,7 @@ import routes from "routes";
 import { useMaterialUIController } from "context";
 import theme from "assets/theme";
 // Images
+import themeDark from "assets/theme-dark";
 import brandWhite from "assets/images/logo-ct.png";
 import brandDark from "assets/images/logo-ct-dark.png";
 import Dashboard from "layouts/dashboard";
@@ -27,8 +28,16 @@ import Attendance from "layouts/Attendance";
 
 function App() {
   const [controller] = useMaterialUIController();
-  const { darkMode } = controller;
-
+  const {
+    miniSidenav,
+    direction,
+    layout,
+    openConfigurator,
+    sidenavColor,
+    transparentSidenav,
+    whiteSidenav,
+    darkMode,
+  } = controller;
   const isLoggedIn = useSelector((state) => state.auth.isAuthenticated);
   const role = useSelector(state=>state.auth.user.role);
   console.log(role);
