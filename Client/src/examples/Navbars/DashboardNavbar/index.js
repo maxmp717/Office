@@ -20,7 +20,7 @@ import Icon from "@mui/material/Icon";
 import MDBox from "components/MDBox";
 // import MDButton from "components/MDButton";
 import MDInput from "components/MDInput";
-
+import MDAvatar from "components/MDAvatar";
 // Material Dashboard 2 React example components
 import Breadcrumbs from "examples/Breadcrumbs";
 import NotificationItem from "examples/Items/NotificationItem";
@@ -180,7 +180,7 @@ function DashboardNavbar(props, { absolute, light, isMini }) {
                 variant="contained"
                 onClick={handleOpenMenu}
               >
-                <MDBox component="img" src={fav1} alt="Thankyou" width="40%" />
+                <MDAvatar src={fav1} alt="Thankyou" size="md" />
                 {/* <Icon sx={iconsStyle}>account_circle</Icon> */}
               </IconButton>
               {renderMenu()}

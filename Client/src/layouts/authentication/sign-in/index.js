@@ -1,36 +1,17 @@
 import { useState , useEffect} from "react";
-
-// react-router-dom components
 import { Link ,useNavigate} from "react-router-dom";
-
-// @mui material components
 import Card from "@mui/material/Card";
 import Switch from "@mui/material/Switch";
-// import Grid from "@mui/material/Grid";
-// import MuiLink from "@mui/material/Link";
-
-// @mui icons
-// import FacebookIcon from "@mui/icons-material/Facebook";
-// import GitHubIcon from "@mui/icons-material/GitHub";
-// import GoogleIcon from "@mui/icons-material/Google";
-
-// Material Dashboard 2 React components
 import MDBox from "components/MDBox";
 import MDTypography from "components/MDTypography";
 import MDInput from "components/MDInput";
 import MDButton from "components/MDButton";
-
-// Authentication layout components
 import BasicLayout from "layouts/authentication/components/BasicLayout";
-
-// Images
 import bgImage from "assets/images/bg-sign-in-basic.jpeg";
-
-// Redux
 import {loginUser} from 'actions/authAction';
 import {connect} from 'react-redux';
 
-function Basic(props) {
+const Basic = function (props) {
   const [rememberMe, setRememberMe] = useState();
   const [err,setErr] = useState({email:'',password:'',emailIncorrect:'',passwordIncorrect:''})
   const navigate = useNavigate();
@@ -40,6 +21,9 @@ function Basic(props) {
   };
   const [values, setValues] = useState(initialValues);
   const handleSetRememberMe = () => setRememberMe(!rememberMe);
+  const [red,setRed] = useState(false)
+
+
 
   const handleInputChange = (e) => {
     const { name, value } = e.target;
@@ -56,17 +40,21 @@ function Basic(props) {
     }
   })
 
-  useEffect(()=>{
+ useEffect(()=>{
     if(props.errors){
       setErr({
-        email: props.errors.email,
+        email:props.errors.email,
         password: props.errors.password,
         emailIncorrect: props.errors.emailnotfound,
-        passwordIncorrect: props.errors.passwordinCorrect,
+        passwordIncorrect: props.errors.passwordinCorrect
       })
+      
     }
+    if(err.email||err.emailIncorrect && err.password||err.passwordIncorrect !==''){
+      setRed(true)
+    }
+    console.log(err)
   },[props.errors])
-
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -97,8 +85,6 @@ function Basic(props) {
             fontWeight="medium"
             color="white"
             mt={1}
-            component={Link}
-            to="/dashboard"
           >
             Sign in
           </MDTypography>
@@ -112,8 +98,10 @@ function Basic(props) {
                 label="Email"
                 value={values.email}
                 onChange={handleInputChange}
+                helperText={err.email||err.emailIncorrect}
                 name="email"
                 fullWidth
+                error={red}
               />
             </MDBox>
             <MDBox mb={2}>
@@ -122,7 +110,9 @@ function Basic(props) {
                 label="Password"
                 value={values.password}
                 onChange={handleInputChange}
+                helperText={err.password||err.passwordIncorrect}
                 name="password"
+                error={red}
                 fullWidth
               />
             </MDBox>
@@ -167,7 +157,7 @@ function Basic(props) {
 
 const mapStateToProps = state =>({
   auth: state.auth,
-  errors: state.errors
+  errors: state.error
 })
 
 export default connect(mapStateToProps,{loginUser})(Basic);

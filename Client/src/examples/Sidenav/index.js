@@ -32,7 +32,7 @@ import {
   setWhiteSidenav,
 } from "context";
 
-function Sidenav({ color, brand, brandName, routes, ...rest }) {
+function Sidenav({ color, brand, brandName, routes,roles, ...rest }) {
   const [controller, dispatch] = useMaterialUIController();
   const { miniSidenav, transparentSidenav, whiteSidenav, darkMode } = controller;
   const location = useLocation();
@@ -69,7 +69,7 @@ function Sidenav({ color, brand, brandName, routes, ...rest }) {
   }, [dispatch, location]);
 
   // Render all the routes from the routes.js (All the visible items on the Sidenav)
-  const renderRoutes = routes.map(({ type, name, icon, title, noCollapse, key, href, route }) => {
+  const renderRoutes = routes.map(({ type, name, icon, title, noCollapse, key, href, route, role }) => {
     let returnValue;
 
     if (type === "collapse") {
@@ -88,11 +88,11 @@ function Sidenav({ color, brand, brandName, routes, ...rest }) {
             noCollapse={noCollapse}
           />
         </Link>
-      ) : (
+      ) : role===roles || role === 'open' ?(
         <NavLink key={key} to={route}>
           <SidenavCollapse name={name} icon={icon} active={key === collapseName} />
         </NavLink>
-      );
+      ):'';
     } else if (type === "title") {
       returnValue = (
         <MDTypography
@@ -194,6 +194,7 @@ Sidenav.propTypes = {
   // eslint-disable-next-line react/require-default-props
   brandName: PropTypes.string,
   routes: PropTypes.arrayOf(PropTypes.object).isRequired,
+  roles: PropTypes.string
 };
 
 export default Sidenav;

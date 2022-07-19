@@ -50,7 +50,7 @@ router.route('/login').post((req,res)=>{
     const {errors,isValid} = loginValidate(req.body);
 
     if(!isValid){
-        return res.status(400).json(console.log(errors));
+        return res.status(400).json(errors);
     }
 
     const email = req.body.email;

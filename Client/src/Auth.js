@@ -7,6 +7,7 @@ import Configurator from "examples/Configurator";
 import logo from "assets/images/logo (1).jpg";
 import routes from "routes";
 import { useMaterialUIController, setMiniSidenav, setOpenConfigurator } from "context";
+import { useSelector } from "react-redux";
 
 export default function Auth() {
   const [controller, dispatch] = useMaterialUIController();
@@ -22,7 +23,7 @@ export default function Auth() {
   } = controller;
   const [onMouseEnter, setOnMouseEnter] = useState(false);
   const { pathname } = useLocation();
-
+  const roles = useSelector(state=>state.auth.user.role)
   const handleOnMouseEnter = () => {
     if (miniSidenav && !onMouseEnter) {
       setMiniSidenav(dispatch, false);
@@ -81,6 +82,7 @@ export default function Auth() {
           brand={(transparentSidenav && !darkMode) || whiteSidenav ? logo : logo}
           brandName=""
           routes={routes}
+          roles={roles}
           onMouseEnter={handleOnMouseEnter}
           onMouseLeave={handleOnMouseLeave}
         />

@@ -2,6 +2,7 @@ import { useEffect } from "react";
 import { Routes, Route, Navigate } from "react-router-dom";
 import { ThemeProvider } from "@mui/material/styles";
 import CssBaseline from "@mui/material/CssBaseline";
+// import SignIn from "layouts/authentication/sign-in/SignIn";
 import SignIn from "layouts/authentication/sign-in";
 import SignUp from "layouts/authentication/sign-up";
 import Protected from "layouts/authentication/Producted";
@@ -19,13 +20,18 @@ import Tables from "layouts/tables";
 import Auth from "./Auth";
 import setAuthToken from "./utils/setAuthToken";
 import store from "./store";
+import AdminReport from "layouts/AdminReport";
+import Profile from "layouts/profile";
+import UserReport from "layouts/UserReport";
+import Attendance from "layouts/Attendance";
 
 function App() {
   const [controller] = useMaterialUIController();
   const { darkMode } = controller;
 
   const isLoggedIn = useSelector((state) => state.auth.isAuthenticated);
-  console.log(isLoggedIn);
+  const role = useSelector(state=>state.auth.user.role);
+  console.log(role);
   useEffect(() => {
     if (localStorage.jwtToken) {
       // Set auth token header auth
@@ -58,7 +64,7 @@ function App() {
             key={route.route}
             exact
             path={route.route}
-            element={<Protected isLoggedIn={isLoggedIn}>{route.component}</Protected>}
+            element={<Protected isValid={(isLoggedIn&&role==='admin')}>{route.component}</Protected>}
           />
         );
       }
@@ -74,13 +80,20 @@ function App() {
         {/* <Route exact path={"/auth"} element={<Auth/>}/> */}
         <Route exact path="/authentication/sign-in" element={<SignIn />} />
         <Route exact path="/authentication/sign-up" element={<SignUp />} />
-        {getRoutes(routes)}
-        {/* <Route exact path={"/dashboard"} element={
-              <Protected isLoggedIn={isLoggedIn}><Dashboard/></Protected>}/> */}
-        {/* <Route exact path={"/tables"} element={
-              <Protected isLoggedIn={isLoggedIn}><Tables/></Protected>}/> */}
+        {/* {getRoutes(routes)} */}
+        <Route element={<Protected isValid={isLoggedIn}/>}>
+          <Route exact path="/dashboard" element={<Dashboard/>}/>
+          <Route exact path="/profile" element={<Profile/>}/>
+          <Route exact path="/attendance" element={<Attendance/>}/>
+        </Route>
+        <Route element={<Protected isValid={(isLoggedIn&&role==='admin')}/>}>
+          <Route exact path="/admin-report" element={<AdminReport/>} />
+        </Route>
+        <Route element={<Protected isValid={(isLoggedIn&&role==='analyst')}/>}>
+          <Route exact path="/user-report" element={<UserReport/>} />
+        </Route>
         {isLoggedIn ? (
-          <Route exact path="/" element={<Navigate to="/dashboard" />} />
+          <Route exact path="*" element={<Navigate to="/dashboard" />} />
         ) : (
           <Route exact path="/" element={<Navigate to="/authentication/sign-in" />} />
         )}

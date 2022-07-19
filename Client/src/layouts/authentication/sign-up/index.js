@@ -104,8 +104,8 @@ function Cover(props) {
                         onChange={handleInputChange}
                       >
                         <option aria-label="None" />
-                        <option value="Analyst">Analyst</option>
-                        <option value="Admin">Team Leader</option>
+                        <option value="analyst">Analyst</option>
+                        <option value="admin">Team Leader</option>
                         {/* <option value="Project Manager">Project Manager</option>
                         <option value="IT Admin">IT Admin</option>
                         <option value="HR">HR</option> */}

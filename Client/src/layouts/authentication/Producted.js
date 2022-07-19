@@ -1,10 +1,10 @@
-import { Navigate } from "react-router-dom";
+import { Navigate,Outlet } from "react-router-dom";
 
-function Protected({ isLoggedIn, children }) {
-  if (!isLoggedIn) {
+function Protected({ isValid, children }) {
+  if (!isValid) {
     return <Navigate to="/authentication/sign-in" replace />;
   }
-  return children;
+  return children ? children: <Outlet/>;
 }
 
 export default Protected;
