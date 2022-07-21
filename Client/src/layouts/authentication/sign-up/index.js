@@ -2,6 +2,7 @@ import { Link } from "react-router-dom";
 import { useState ,useEffect } from "react";
 import Card from "@mui/material/Card";
 import Grid from "@mui/material/Grid";
+import FormHelperText from '@mui/material/FormHelperText';
 import FormControl from "@mui/material/FormControl";
 import MDBox from "components/MDBox";
 import MDTypography from "components/MDTypography";
@@ -14,6 +15,8 @@ import InputLabel from "@mui/material/InputLabel";
 import {connect} from 'react-redux';
 import {registerUser} from 'actions/authAction';
 import { useNavigate} from 'react-router-dom';
+import {ToastContainer, toast} from 'react-toastify';
+
 
 
 function Cover(props) {
@@ -26,6 +29,11 @@ function Cover(props) {
     cpassword: "",
   };
   const [values, setValues] = useState(initialValues);
+  const [err,setErr] = useState({
+    name:"",role:'',empId:'',email:'',password:'',password2:'',emailAlready:''
+  })
+  const [red,setRed] = useState(false)
+
   const handleInputChange = (e) => {
     const { name, value } = e.target;
     setValues({
@@ -33,6 +41,27 @@ function Cover(props) {
       [name]: value,
     });
   };
+
+  useEffect(()=>{
+    if(props.errors){
+      setErr({
+        name: props.errors.name,
+        role: props.errors.role,
+        empId: props.errors.empId,
+        email: props.errors.email,
+        password: props.errors.password,
+        password2: props.errors.password2,
+        emailAlready: props.errors.emailAlready 
+      })
+    }
+
+    if(err.email&& err.password &&err.name && err.role && err.empId && err.password2 && err.emailAlready !==''){
+      setRed(true)
+    }
+    toast.error("NO")
+  },[props.errors])
+
+
   // const [show, setShow] = useState(false);
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -46,9 +75,11 @@ function Cover(props) {
     };
     console.log(userData);
     props.registerUser(userData);
+
+    toast.success("oK")
   };
   return (
-    <CoverLayout image={bgImage}>
+    <><CoverLayout image={bgImage}>
       <Card>
         <MDBox
           variant="gradient"
@@ -76,9 +107,9 @@ function Cover(props) {
                 label="Name"
                 value={values.name}
                 onChange={handleInputChange}
+                helperText={err.name}
                 name="name"
-                fullWidth
-              />
+                fullWidth />
             </MDBox>
             <MDBox mt={2} mb={2} display="flex" justifycontent="space-evenly" alignItems="center">
               <Grid container spacing={2}>
@@ -87,9 +118,9 @@ function Cover(props) {
                     type="number"
                     value={values.empid}
                     onChange={handleInputChange}
+                    helperText={err.empId}
                     name="empid"
-                    label="Employee Number"
-                  />
+                    label="Employee Number" />
                 </Grid>
                 <Grid item xs={4}>
                   <div>
@@ -105,11 +136,13 @@ function Cover(props) {
                       >
                         <option aria-label="None" />
                         <option value="analyst">Analyst</option>
-                        <option value="admin">Team Leader</option>
+                        <option value="analyst">Team Leader</option>
+                        <option value="admin">Admin</option>
                         {/* <option value="Project Manager">Project Manager</option>
-                        <option value="IT Admin">IT Admin</option>
-                        <option value="HR">HR</option> */}
+    <option value="IT Admin">IT Admin</option>
+    <option value="HR">HR</option> */}
                       </Select>
+                      <FormHelperText>{err.role}</FormHelperText>
                     </FormControl>
                   </div>
                 </Grid>
@@ -121,9 +154,9 @@ function Cover(props) {
                 value={values.email}
                 onChange={handleInputChange}
                 name="email"
+                helperText={err.email || err.emailAlready}
                 label="Email"
-                fullWidth
-              />
+                fullWidth />
             </MDBox>
             <MDBox mb={2}>
               <MDInput
@@ -131,9 +164,9 @@ function Cover(props) {
                 value={values.password}
                 onChange={handleInputChange}
                 name="password"
+                helperText={err.password}
                 label="Password"
-                fullWidth
-              />
+                fullWidth />
             </MDBox>
             <MDBox mb={2}>
               <MDInput
@@ -142,8 +175,8 @@ function Cover(props) {
                 value={values.cpassword}
                 onChange={handleInputChange}
                 name="cpassword"
-                fullWidth
-              />
+                helperText={err.password2}
+                fullWidth />
             </MDBox>
             <MDBox mt={4} mb={1}>
               <MDButton variant="gradient" type="submit" color="info" fullWidth>
@@ -168,13 +201,13 @@ function Cover(props) {
           </MDBox>
         </MDBox>
       </Card>
-    </CoverLayout>
+    </CoverLayout><ToastContainer /></>
   );
 }
 
 const mapStateToProps = state =>({
   auth: state.auth,
-  errors: state.errors
+  errors: state.error
 })
 
 

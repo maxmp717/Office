@@ -57,8 +57,7 @@ function Dashboard() {
         return results.data;
       },
     });
-    setDisable(!disable);
-    toast.success("Successfully Data Submitted 👌");
+    setDisable(!disable)
   };
 
   // Upload Data

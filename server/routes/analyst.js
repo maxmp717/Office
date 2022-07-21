@@ -87,6 +87,16 @@ router.route('/fetch/report/user/').get((req,res)=>{
     .catch(err=>res.status(400).json('err'+err))
 })
 
+//Fetch Report by date
+router.route('/fetch/report/date/').get((req,res)=>{
+    const sDate = req.query.sDate
+    const eDate = req.query.eDate
+
+    Analyst.find({createdAt:{$gte:new Date(sDate),$lte: new Date(eDate)}})
+    .then(analyst=>res.json(analyst))
+    .catch(err=>res.status(400).json('err'+err))
+})
+
 router.route('/fetch').get((req,res)=>{
     Analyst.find(req.query)
     .then(analyst=>res.json(analyst))
@@ -95,6 +105,15 @@ router.route('/fetch').get((req,res)=>{
 router.route('/del').delete((req,res)=>{
     Analyst.deleteMany()
     .then(()=>res.json('Exercise Deleted!!!!'))
+    .catch(err=>res.status(400).json('Error:'+err))
+})
+router.route('/count').get((req,res)=>{
+    const sDate = req.query.sDate
+    const team = req.query.team
+    const fdate = new Date(sDate);
+
+    Analyst.count({team:team,createdAt:{$gte: new Date(sDate)}})
+    .then(analyst=>res.json(analyst))
     .catch(err=>res.status(400).json('Error:'+err))
 })
 
