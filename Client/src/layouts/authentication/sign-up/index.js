@@ -151,7 +151,7 @@ function Cover(props) {
                         >
                           <option aria-label="None" />
                           <option value="analyst">Analyst</option>
-                          <option value="analyst">Team Leader</option>
+                          {/* <option value="analyst">Team Leader</option> */}
                           <option value="admin">Admin</option>
                           {/* <option value="Project Manager">Project Manager</option>
     <option value="IT Admin">IT Admin</option>
