@@ -95,18 +95,20 @@ function AdminReport() {
 
   // tabel report
   const columns = [
-    { field: "id", headerName: "ID", width: 80 },
+    { field: "id", headerName: "ID", width: 50 },
     {
       field: "name",
       headerName: "Name",
-      width: 150,
+      width: 200,
       editable: false,
+      flex: 2,
     },
     {
       field: "team",
       headerName: "Team",
       width: 150,
       editable: false,
+      flex: 1,
     },
     {
       field: "date",
@@ -114,6 +116,7 @@ function AdminReport() {
       // type: 'date',
       width: 130,
       editable: false,
+      flex: 1,
     },
     {
       field: "TotalTime",
@@ -121,6 +124,7 @@ function AdminReport() {
       // type: 'time',
       width: 150,
       editable: false,
+      flex: 1,
     },
     {
       field: "ActiveTime",
@@ -128,6 +132,7 @@ function AdminReport() {
       // type: 'number',
       width: 150,
       editable: false,
+      flex: 1,
     },
     {
       field: "EntityTime",
@@ -135,6 +140,7 @@ function AdminReport() {
       // type: 'number',
       width: 150,
       editable: false,
+      flex: 1,
     },
   ];
   const row = useMemo(
