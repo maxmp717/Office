@@ -87,7 +87,10 @@ function Dashboard() {
       if (item.URL.match(/sagemaker\.aws\/#\/work\//gm) !== null) {
         activeTime += Number(item["Active(sec)"]);
       }
-      if (item.URL.match(/sagemaker\.aws\/#\/work\//gm) !== null) {
+       if (item.URL.match(/\/#Tasks/gm) !== null) {
+        activeTime += Number(item["Active(sec)"]);
+      }
+      if (item.URL.match(/\.annotell\.com\/assignment\//gm) !== null) {
         activeTime += Number(item["Active(sec)"]);
       }
       if (item.URL.match(/inAll/gm) !== null) {
@@ -100,6 +103,7 @@ function Dashboard() {
     entityTime = totalTime - activeTime;
     const entity = convert(entityTime, "cal");
     console.log(Object.keys(data).length)
+    console.log(totalTime);
     setSeconds({
       TotalTime: total,
       ActiveTime: active,
