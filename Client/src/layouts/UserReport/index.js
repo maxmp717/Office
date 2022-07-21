@@ -61,18 +61,20 @@ function Report() {
 
   // tabel report
   const columns = [
-    { field: "id", headerName: "ID", width: 80 },
+    { field: "id", headerName: "ID", width: 80, flex: 1 },
     {
       field: "name",
       headerName: "Name",
       width: 150,
       editable: false,
+      flex: 1,
     },
     {
       field: "team",
       headerName: "Team",
       width: 150,
       editable: false,
+      flex: 1,
     },
     {
       field: "date",
@@ -80,6 +82,7 @@ function Report() {
       // type: 'date',
       width: 130,
       editable: false,
+      flex: 1,
     },
     {
       field: "TotalTime",
@@ -87,6 +90,7 @@ function Report() {
       // type: 'time',
       width: 150,
       editable: false,
+      flex: 1,
     },
     {
       field: "ActiveTime",
@@ -94,6 +98,7 @@ function Report() {
       // type: 'number',
       width: 150,
       editable: false,
+      flex: 1,
     },
     {
       field: "EntityTime",
@@ -101,6 +106,7 @@ function Report() {
       // type: 'number',
       width: 150,
       editable: false,
+      flex: 1,
     },
   ];
 

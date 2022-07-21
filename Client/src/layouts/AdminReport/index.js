@@ -54,16 +54,16 @@ function AdminReport() {
     const eDate = values.endDate;
     const name = empName;
     const { team } = values;
-    console.log(name !== '')
+    console.log(name !== "");
     if (name === null) {
-        axios
+      axios
         .get(`analyst/fetch/report/team/?sDate=${sDate}&eDate=${eDate}&team=${team}`)
         .then((res) => {
           console.log(res.data);
           setReport(res.data);
         })
         .catch((err) => console.log(`Error:${err}`));
-    } else if (team === '') {
+    } else if (team === "") {
       axios
         .get(`analyst/fetch/report/user/?sDate=${sDate}&eDate=${eDate}&name=${name}`)
         .then((res) => {
@@ -71,7 +71,7 @@ function AdminReport() {
           setReport(res.data);
         })
         .catch((err) => console.log(`Error:${err}`));
-    } else{
+    } else {
       axios
         .get(`analyst/fetch/report/?sDate=${sDate}&eDate=${eDate}&name=${name}&team=${team}`)
         .then((res) => {
@@ -188,7 +188,7 @@ function AdminReport() {
             <MDBox pt={6} px={4} display="flex" justifycontent="space-evenly" alignItems="center">
               <Grid container spacing={3}>
                 {/* <Grid item xs={12} md={4}> */}
-                <Grid item xs={3}>
+                <Grid item xs={6} md={2}>
                   <MDTypography variant="h6" fontWeight="medium">
                     Start Date
                   </MDTypography>
@@ -199,7 +199,7 @@ function AdminReport() {
                     onChange={handleInputChange}
                   />
                 </Grid>
-                <Grid item xs={3}>
+                <Grid item xs={6} md={3}>
                   <MDTypography variant="h6" fontWeight="medium">
                     End Date
                   </MDTypography>
@@ -210,7 +210,7 @@ function AdminReport() {
                     onChange={handleInputChange}
                   />
                 </Grid>
-                <Grid item xs={3}>
+                <Grid item xs={6} md={3}>
                   <MDTypography variant="h6" fontWeight="medium">
                     Team
                   </MDTypography>
@@ -239,7 +239,7 @@ function AdminReport() {
                     </FormControl>
                   </div>
                 </Grid>
-                <Grid item xs={2}>
+                <Grid item xs={6} md={2}>
                   <MDTypography variant="h6" fontWeight="medium">
                     Name
                   </MDTypography>
@@ -248,11 +248,11 @@ function AdminReport() {
                     freeSolo
                     options={name.map((option) => option.name)}
                     onChange={handleChange}
-                    renderInput={(params) => <TextField {...params} />}
+                    renderInput={(params) => <TextField {...params} size="medium" />}
                     sx={{ width: "180px" }}
                   />
                 </Grid>
-                <Grid item xs={1}>
+                <Grid item xs={6} md={2}>
                   <MDBox
                     pt={4}
                     pb={3}
@@ -261,10 +261,7 @@ function AdminReport() {
                     justifyContent="end"
                     alignItems="center"
                   >
-                    <MDButton
-                      variant="gradient"
-                      color="success"
-                      type="submit" >
+                    <MDButton variant="gradient" color="success" type="submit">
                       &nbsp;Search
                     </MDButton>
                   </MDBox>
@@ -283,48 +280,48 @@ function AdminReport() {
             </MDBox>
           </MDBox>
         </Card>
-      
-          <MDBox pt={8}>
-            <Grid item xs={12}>
-              <Card>
-                <MDBox
-                  mx={2}
-                  mt={-3}
-                  py={3}
-                  px={2}
-                  variant="gradient"
-                  bgColor="info"
-                  borderRadius="lg"
-                  coloredShadow="info"
-                >
-                  <MDTypography variant="h6" color="white">
-                    Reports Table
-                  </MDTypography>
-                </MDBox>
-                <MDBox pt={3}>
-                  {/* <Datatable tableHead={mytableHead} dataSrc={mydataSrc} /> */}
-                  {/* <DataTable
+
+        <MDBox pt={8}>
+          <Grid item xs={12}>
+            <Card>
+              <MDBox
+                mx={2}
+                mt={-3}
+                py={3}
+                px={2}
+                variant="gradient"
+                bgColor="info"
+                borderRadius="lg"
+                coloredShadow="info"
+              >
+                <MDTypography variant="h6" color="white">
+                  Reports Table
+                </MDTypography>
+              </MDBox>
+              <MDBox pt={3}>
+                {/* <Datatable tableHead={mytableHead} dataSrc={mydataSrc} /> */}
+                {/* <DataTable
                   table={{ columns, rows }}
                   isSorted={false}
                   entriesPerPage={false}
                   showTotalEntries={false}
                   noEndBorder
                 /> */}
-                  <Box sx={{ height: 700, width: "100%" }}>
-                    <DataGrid
-                      rows={row}
-                      columns={columns}
-                      pageSize={10}
-                      rowsPerPageOptions={[10]}
-                      checkboxSelection
-                      disableSelectionOnClick
-                      components={{ Toolbar: GridToolbar }}
-                    />
-                  </Box>
-                </MDBox>
-              </Card>
-            </Grid>
-          </MDBox>
+                <Box sx={{ height: 700, width: "100%" }}>
+                  <DataGrid
+                    rows={row}
+                    columns={columns}
+                    pageSize={10}
+                    rowsPerPageOptions={[10]}
+                    checkboxSelection
+                    disableSelectionOnClick
+                    components={{ Toolbar: GridToolbar }}
+                  />
+                </Box>
+              </MDBox>
+            </Card>
+          </Grid>
+        </MDBox>
       </Grid>
       <Footer />
     </DashboardLayout>

@@ -196,7 +196,7 @@ function Dashboard() {
                             alignItems="center"
                             justifyContent="space-evenly"
                           >
-                            <Grid item xs={4}>
+                            <Grid item xs={4} md={4}>
                               <div>
                                 <FormControl sx={{ minWidth: 180 }}>
                                   <InputLabel htmlFor="grouped-native-select">TEAM</InputLabel>
