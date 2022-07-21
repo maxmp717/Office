@@ -10,15 +10,15 @@ import MDInput from "components/MDInput";
 import * as React from "react";
 import { DataGrid, GridToolbar } from "@mui/x-data-grid";
 import Box from "@mui/material/Box";
-import FormControl from "@mui/material/FormControl";
-import Select from "@mui/material/Select";
+// import FormControl from "@mui/material/FormControl";
+// import Select from "@mui/material/Select";
 import { useState, useEffect, useMemo } from "react";
 import "react-datepicker/dist/react-datepicker.css";
 import TextField from "@mui/material/TextField";
 import Autocomplete from "@mui/material/Autocomplete";
 import axios from "axios";
 import moment from "moment";
-import { height } from "@mui/system";
+// import { height } from "@mui/system";
 
 function AdminReport() {
   const initialValues = {
@@ -29,6 +29,7 @@ function AdminReport() {
   const [values, setValues] = useState(initialValues);
   const [name, setName] = useState([]);
   const [empName, setEmpName] = useState(null);
+  const [teamList, setTeamList] = useState(null);
   const [report, setReport] = useState([]);
 
   const handleInputChange = (e) => {
@@ -40,20 +41,21 @@ function AdminReport() {
     });
   };
   const handleChange = (event, value) => setEmpName(value);
+  const handleTeamChange = (event, value) => setTeamList(value);
   const handleSubmit = (e) => {
     e.preventDefault();
     const userData = {
       startDate: values.startDate,
       endDate: values.endDate,
       empname: empName,
-      team: values.team,
+      team: teamList,
     };
     console.log(userData);
 
     const sDate = values.startDate;
     const eDate = values.endDate;
     const name = empName;
-    const { team } = values;
+    const  team  = teamList;
     console.log(name !== "");
     if (name === null) {
       axios
@@ -164,6 +166,31 @@ function AdminReport() {
     [report]
   );
 
+  // Team List
+  const list = [
+    "Dumbledore",
+    "Gandalf",
+    "Honeydew_Image Classification",
+    "Longon",
+    "Mango_Autonomy",
+    "Mango_Obstacles",
+    "Mango_Soybeans",
+    "Neo Segmentation",
+    "Pomelo",
+    "Rambutan_Traffic Light",
+    "Rambutan_Traffic Sign",
+    "Snorlax_Vehicle",
+    "Venusaur",
+    "LIME",
+    "SNOMED",
+    "RX-NORM",
+    "Receipt Labeling",
+    "My Heritage Project",
+    "Dragon",
+    "SKY FFV",
+    "NALA",
+    "SWDP",
+  ];
   return (
     <DashboardLayout>
       <DashboardNavbar />
@@ -199,7 +226,7 @@ function AdminReport() {
                     onChange={handleInputChange}
                   />
                 </Grid>
-                <Grid item xs={6} md={3}>
+                <Grid item xs={6} md={2}>
                   <MDTypography variant="h6" fontWeight="medium">
                     End Date
                   </MDTypography>
@@ -214,42 +241,26 @@ function AdminReport() {
                   <MDTypography variant="h6" fontWeight="medium">
                     Team
                   </MDTypography>
-                  <div>
-                    <FormControl sx={{ minWidth: 180 }}>
-                      <Select
-                        native
-                        id="grouped-native-select"
-                        name="team"
-                        value={values.team}
-                        onChange={handleInputChange}
-                      >
-                        <option aria-label="None" />
-                        <optgroup label="CV">
-                          <option value="Dumbledore">Dumbledore</option>
-                          <option value="Annotell">Annotell</option>
-                          <option value="Lane">Lane</option>
-                          <option value="Pomelo">Pomelo</option>
-                        </optgroup>
-                        <optgroup label="NLP">
-                          <option value="Nala">Nala</option>
-                          <option value="Lime">Lime</option>
-                          <option value="Dragon">Dragon</option>
-                        </optgroup>
-                      </Select>
-                    </FormControl>
-                  </div>
+                  <Autocomplete
+                    disablePortal
+                    id="combo-box-demo"
+                    options={list}
+                    onChange={handleTeamChange}
+                    sx={{ width: 250 }}
+                    renderInput={(params) => <TextField {...params} />}
+                  />
                 </Grid>
                 <Grid item xs={6} md={2}>
                   <MDTypography variant="h6" fontWeight="medium">
                     Name
                   </MDTypography>
                   <Autocomplete
-                    id="free-solo-demo"
-                    freeSolo
+                    id="combo-box-demo"
                     options={name.map((option) => option.name)}
                     onChange={handleChange}
                     renderInput={(params) => <TextField {...params} size="medium" />}
-                    sx={{ width: "180px" }}
+                    // sx={{ width: "180px" }}
+                    sx={{ width: 250 }}
                   />
                 </Grid>
                 <Grid item xs={6} md={2}>

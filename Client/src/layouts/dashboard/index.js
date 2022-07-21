@@ -19,9 +19,12 @@ import { useSelector } from "react-redux";
 import axios from "axios";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.min.css";
+import TextField from "@mui/material/TextField";
+import Autocomplete from "@mui/material/Autocomplete";
 
 function Dashboard() {
   const [data, setData] = useState([]);
+  const [teamList, setTeamList] = useState(null);
   const [disable, setDisable] = useState(true);
   const [seconds, setSeconds] = useState({ TotalTime: "", ActiveTime: "", EntityTime: "" });
   const [timeData, setTimeData] = useState({ TotalTime: "", ActiveTime: "", EntityTime: "" });
@@ -31,6 +34,7 @@ function Dashboard() {
     team: "",
   };
   const [values, setValues] = useState(initialValues);
+  const handleTeamChange = (event, value) => setTeamList(value);
   const handleInputChange = (e) => {
     const { name, value } = e.target;
 
@@ -63,7 +67,7 @@ function Dashboard() {
     const userData = {
       name,
       empId,
-      team: values.team,
+      team: teamList,
       TotalTime: timeData.TotalTime,
       ActiveTime: timeData.ActiveTime,
       EntityTime: timeData.EntityTime,
@@ -113,7 +117,31 @@ function Dashboard() {
       EntityTime: entityTime,
     });
   }, [data]);
-
+  // Team List
+  const list = [
+    "Dumbledore",
+    "Gandalf",
+    "Honeydew_Image Classification",
+    "Longon",
+    "Mango_Autonomy",
+    "Mango_Obstacles",
+    "Mango_Soybeans",
+    "Neo Segmentation",
+    "Pomelo",
+    "Rambutan_Traffic Light",
+    "Rambutan_Traffic Sign",
+    "Snorlax_Vehicle",
+    "Venusaur",
+    "LIME",
+    "SNOMED",
+    "RX-NORM",
+    "Receipt Labeling",
+    "My Heritage Project",
+    "Dragon",
+    "SKY FFV",
+    "NALA",
+    "SWDP",
+  ];
   return (
     <>
       <DashboardLayout>
@@ -196,33 +224,15 @@ function Dashboard() {
                             alignItems="center"
                             justifyContent="space-evenly"
                           >
-                            <Grid item xs={4} md={4}>
-                              <div>
-                                <FormControl sx={{ minWidth: 180 }}>
-                                  <InputLabel htmlFor="grouped-native-select">TEAM</InputLabel>
-                                  <Select
-                                    native
-                                    id="grouped-native-select"
-                                    label="team"
-                                    name="team"
-                                    value={values.team}
-                                    onChange={handleInputChange}
-                                  >
-                                    <option aria-label="None" />
-                                    <optgroup label="CV">
-                                      <option value="Dumbledore">Dumbledore</option>
-                                      <option value="Annotell">Annotell</option>
-                                      <option value="Lane">Lane</option>
-                                      <option value="Pomelo">Pomelo</option>
-                                    </optgroup>
-                                    <optgroup label="NLP">
-                                      <option value="Nala">Nala</option>
-                                      <option value="Lime">Lime</option>
-                                      <option value="Dragon">Dragon</option>
-                                    </optgroup>
-                                  </Select>
-                                </FormControl>
-                              </div>
+                            <Grid item xs={4} md={7}>
+                              <Autocomplete
+                                disablePortal
+                                id="combo-box-demo"
+                                options={list}
+                                onChange={handleTeamChange}
+                                sx={{ width: 250 }}
+                                renderInput={(params) => <TextField {...params} label="Team" />}
+                              />
                             </Grid>
                             <Grid item xs={6}>
                               <MDInput type="file" accept=".csv" onChange={handlingFileUpload} />
