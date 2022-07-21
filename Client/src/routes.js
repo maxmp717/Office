@@ -1,11 +1,9 @@
-
-
 // Material Dashboard 2 React layouts
 import Dashboard from "layouts/dashboard";
 // import Tables from "layouts/tables";
 // import Billing from "layouts/billing";
 // import RTL from "layouts/rtl";
-import Notifications from "layouts/notifications";
+// import Notifications from "layouts/notifications";
 import Profile from "layouts/profile";
 import SignIn from "layouts/authentication/sign-in";
 import SignUp from "layouts/authentication/sign-up";
@@ -24,7 +22,7 @@ const routes = [
     icon: <Icon fontSize="small">dashboard</Icon>,
     route: "/dashboard",
     component: <Dashboard />,
-    role: 'open'
+    role: "open",
   },
   // {
   //   type: "collapse",
@@ -41,7 +39,7 @@ const routes = [
     icon: <Icon fontSize="small">table_view</Icon>,
     route: "/attendance",
     component: <Attendance />,
-    role: 'open'
+    role: "open",
   },
   {
     type: "collapse",
@@ -50,7 +48,7 @@ const routes = [
     icon: <Icon fontSize="small">receipt_long</Icon>,
     route: "/user-report",
     component: <UserReport />,
-    role: 'analyst'
+    role: "analyst",
   },
   // {
   //   type: "collapse",
@@ -60,7 +58,7 @@ const routes = [
   //   route: "/rtl",
   //   component: <RTL />,
   // },
-  
+
   {
     type: "collapse",
     name: "AdminReport",
@@ -68,7 +66,7 @@ const routes = [
     icon: <Icon fontSize="small">receipt_long</Icon>,
     route: "/admin-report",
     component: <AdminReport />,
-    role:'admin'
+    role: "admin",
   },
   {
     type: "collapse",
@@ -77,7 +75,7 @@ const routes = [
     icon: <Icon fontSize="small">person</Icon>,
     route: "/profile",
     component: <Profile />,
-    role:'open'
+    role: "open",
   },
   {
     // type: "collapse",
