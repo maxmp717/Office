@@ -108,11 +108,7 @@ function DashboardNavbar(props, { absolute, light, isMini }) {
       sx={{ mt: 2 }}
     >
       <NotificationItem icon={<Icon>email</Icon>} title={mail} />
-      <MDButton>
-        <Link to="/authentication/sign-in/basic">
-          <NotificationItem icon={<Icon>logout</Icon>} title="Logout" onClick={onOut} />
-        </Link>
-      </MDButton>
+      <NotificationItem icon={<Icon>logout</Icon>} title="Logout" onClick={onOut}/>
       {/* <NotificationItem icon={<Icon>shopping_cart</Icon>} title="Payment successfully completed" /> */}
     </Menu>
   );
