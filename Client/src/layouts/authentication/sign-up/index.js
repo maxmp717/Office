@@ -126,7 +126,7 @@ function Cover(props) {
               </MDBox>
               <MDBox mt={2} mb={2} display="flex" justifycontent="space-evenly" alignItems="center">
                 <Grid container spacing={2}>
-                  <Grid item xs={7}>
+                  <Grid item xs={1} md={7}>
                     <MDInput
                       type="number"
                       value={values.empid}
@@ -136,7 +136,7 @@ function Cover(props) {
                       label="Employee Number"
                     />
                   </Grid>
-                  <Grid item xs={7} md={5}>
+                  <Grid item xs={1} md={3}>
                     <div>
                       <FormControl>
                         <InputLabel htmlFor="grouped-native-select">Role</InputLabel>
@@ -147,7 +147,8 @@ function Cover(props) {
                           name="role"
                           value={values.role}
                           onChange={handleInputChange}
-                          sx={{ Width: 300 }}
+                          // sx={{ Width: 300 }}
+                          style={{ width: "130px" }}
                         >
                           <option aria-label="None" />
                           <option value="analyst">Analyst</option>
