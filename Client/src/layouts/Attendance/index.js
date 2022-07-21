@@ -159,6 +159,11 @@ function Attendance() {
                     <h3>Remaning Time: {remain}</h3>
                   </MDTypography>
                 </MDBox>
+                <MDBox mt={4} px={10} display="flex" flexDirection="column" justifyContent="center" alignItems="center">
+                <MDTypography mb={3} variant="caption" color="error" fontWeight="regular">
+                    <h1>🚧 Under Development Process 🚧</h1>
+                  </MDTypography>
+                  </MDBox>
                 {/* </Grid> */}
               </Card>
             </Grid>

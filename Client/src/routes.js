@@ -4,7 +4,7 @@ import Dashboard from "layouts/dashboard";
 // import Billing from "layouts/billing";
 // import RTL from "layouts/rtl";
 // import Notifications from "layouts/notifications";
-import Profile from "layouts/profile";
+// import Profile from "layouts/profile";
 import SignIn from "layouts/authentication/sign-in";
 import SignUp from "layouts/authentication/sign-up";
 import UserReport from "layouts/UserReport";
@@ -68,15 +68,15 @@ const routes = [
     component: <AdminReport />,
     role: "admin",
   },
-  {
-    type: "collapse",
-    name: "Profile",
-    key: "profile",
-    icon: <Icon fontSize="small">person</Icon>,
-    route: "/profile",
-    component: <Profile />,
-    role: "open",
-  },
+  // {
+  //   type: "collapse",
+  //   name: "Profile",
+  //   key: "profile",
+  //   icon: <Icon fontSize="small">person</Icon>,
+  //   route: "/profile",
+  //   component: <Profile />,
+  //   role: "open",
+  // },
   {
     // type: "collapse",
     // name: "Notifications",

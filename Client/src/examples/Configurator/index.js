@@ -330,12 +330,24 @@ function Configurator() {
 
         <MDBox display="flex" justifyContent="center">
           <MDBox mr={1.5}>
-            <MDButton component={Link} href="" target="_blank" rel="noreferrer" color="dark">
+            <MDButton
+              component={Link}
+              href="mailto:team-developers@objectways.com"
+              target="_blank"
+              rel="noreferrer"
+              color="dark"
+            >
               <QuizIcon />
               &nbsp;Help
             </MDButton>
           </MDBox>
-          <MDButton component={Link} href="" target="_blank" rel="noreferrer" color="dark">
+          <MDButton
+            component={Link}
+            href="mailto:team-developers@objectways.com"
+            target="_blank"
+            rel="noreferrer"
+            color="dark"
+          >
             <RateReviewIcon />
             &nbsp;Feedback
           </MDButton>
