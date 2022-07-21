@@ -10,15 +10,15 @@ import MDInput from "components/MDInput";
 import * as React from "react";
 import { DataGrid, GridToolbar } from "@mui/x-data-grid";
 import Box from "@mui/material/Box";
-import FormControl from "@mui/material/FormControl";
-import Select from "@mui/material/Select";
+// import FormControl from "@mui/material/FormControl";
+// import Select from "@mui/material/Select";
 import { useState, useEffect, useMemo } from "react";
 import "react-datepicker/dist/react-datepicker.css";
 import TextField from "@mui/material/TextField";
 import Autocomplete from "@mui/material/Autocomplete";
 import axios from "axios";
 import moment from "moment";
-import { height } from "@mui/system";
+// import { height } from "@mui/system";
 
 function AdminReport() {
   const initialValues = {
@@ -29,6 +29,7 @@ function AdminReport() {
   const [values, setValues] = useState(initialValues);
   const [name, setName] = useState([]);
   const [empName, setEmpName] = useState(null);
+  const [teamList, setTeamList] = useState(null);
   const [report, setReport] = useState([]);
 
   const handleInputChange = (e) => {
@@ -40,30 +41,31 @@ function AdminReport() {
     });
   };
   const handleChange = (event, value) => setEmpName(value);
+  const handleTeamChange = (event, value) => setTeamList(value);
   const handleSubmit = (e) => {
     e.preventDefault();
     const userData = {
       startDate: values.startDate,
       endDate: values.endDate,
       empname: empName,
-      team: values.team,
+      team: teamList,
     };
     console.log(userData);
 
     const sDate = values.startDate;
     const eDate = values.endDate;
     const name = empName;
-    const { team } = values;
-    console.log(name !== '')
+    const  team  = teamList;
+    console.log(name !== "");
     if (name === null) {
-        axios
+      axios
         .get(`analyst/fetch/report/team/?sDate=${sDate}&eDate=${eDate}&team=${team}`)
         .then((res) => {
           console.log(res.data);
           setReport(res.data);
         })
         .catch((err) => console.log(`Error:${err}`));
-    } else if (team === '') {
+    } else if (team === "") {
       axios
         .get(`analyst/fetch/report/user/?sDate=${sDate}&eDate=${eDate}&name=${name}`)
         .then((res) => {
@@ -71,7 +73,7 @@ function AdminReport() {
           setReport(res.data);
         })
         .catch((err) => console.log(`Error:${err}`));
-    } else{
+    } else {
       axios
         .get(`analyst/fetch/report/?sDate=${sDate}&eDate=${eDate}&name=${name}&team=${team}`)
         .then((res) => {
@@ -95,18 +97,20 @@ function AdminReport() {
 
   // tabel report
   const columns = [
-    { field: "id", headerName: "ID", width: 80 },
+    { field: "id", headerName: "ID", width: 50 },
     {
       field: "name",
       headerName: "Name",
-      width: 150,
+      width: 200,
       editable: false,
+      flex: 2,
     },
     {
       field: "team",
       headerName: "Team",
       width: 150,
       editable: false,
+      flex: 1,
     },
     {
       field: "date",
@@ -114,6 +118,7 @@ function AdminReport() {
       // type: 'date',
       width: 130,
       editable: false,
+      flex: 1,
     },
     {
       field: "TotalTime",
@@ -121,6 +126,7 @@ function AdminReport() {
       // type: 'time',
       width: 150,
       editable: false,
+      flex: 1,
     },
     {
       field: "ActiveTime",
@@ -128,6 +134,7 @@ function AdminReport() {
       // type: 'number',
       width: 150,
       editable: false,
+      flex: 1,
     },
     {
       field: "EntityTime",
@@ -135,6 +142,7 @@ function AdminReport() {
       // type: 'number',
       width: 150,
       editable: false,
+      flex: 1,
     },
   ];
   const row = useMemo(
@@ -158,6 +166,31 @@ function AdminReport() {
     [report]
   );
 
+  // Team List
+  const list = [
+    "Dumbledore",
+    "Gandalf",
+    "Honeydew_Image Classification",
+    "Longon",
+    "Mango_Autonomy",
+    "Mango_Obstacles",
+    "Mango_Soybeans",
+    "Neo Segmentation",
+    "Pomelo",
+    "Rambutan_Traffic Light",
+    "Rambutan_Traffic Sign",
+    "Snorlax_Vehicle",
+    "Venusaur",
+    "LIME",
+    "SNOMED",
+    "RX-NORM",
+    "Receipt Labeling",
+    "My Heritage Project",
+    "Dragon",
+    "SKY FFV",
+    "NALA",
+    "SWDP",
+  ];
   return (
     <DashboardLayout>
       <DashboardNavbar />
@@ -182,7 +215,7 @@ function AdminReport() {
             <MDBox pt={6} px={4} display="flex" justifycontent="space-evenly" alignItems="center">
               <Grid container spacing={3}>
                 {/* <Grid item xs={12} md={4}> */}
-                <Grid item xs={3}>
+                <Grid item xs={6} md={2}>
                   <MDTypography variant="h6" fontWeight="medium">
                     Start Date
                   </MDTypography>
@@ -193,7 +226,7 @@ function AdminReport() {
                     onChange={handleInputChange}
                   />
                 </Grid>
-                <Grid item xs={3}>
+                <Grid item xs={6} md={2}>
                   <MDTypography variant="h6" fontWeight="medium">
                     End Date
                   </MDTypography>
@@ -204,49 +237,33 @@ function AdminReport() {
                     onChange={handleInputChange}
                   />
                 </Grid>
-                <Grid item xs={3}>
+                <Grid item xs={6} md={3}>
                   <MDTypography variant="h6" fontWeight="medium">
                     Team
                   </MDTypography>
-                  <div>
-                    <FormControl sx={{ minWidth: 180 }}>
-                      <Select
-                        native
-                        id="grouped-native-select"
-                        name="team"
-                        value={values.team}
-                        onChange={handleInputChange}
-                      >
-                        <option aria-label="None" />
-                        <optgroup label="CV">
-                          <option value="Dumbledore">Dumbledore</option>
-                          <option value="Annotell">Annotell</option>
-                          <option value="Lane">Lane</option>
-                          <option value="Pomelo">Pomelo</option>
-                        </optgroup>
-                        <optgroup label="NLP">
-                          <option value="Nala">Nala</option>
-                          <option value="Lime">Lime</option>
-                          <option value="Dragon">Dragon</option>
-                        </optgroup>
-                      </Select>
-                    </FormControl>
-                  </div>
+                  <Autocomplete
+                    disablePortal
+                    id="combo-box-demo"
+                    options={list}
+                    onChange={handleTeamChange}
+                    sx={{ width: 250 }}
+                    renderInput={(params) => <TextField {...params} />}
+                  />
                 </Grid>
-                <Grid item xs={2}>
+                <Grid item xs={6} md={2}>
                   <MDTypography variant="h6" fontWeight="medium">
                     Name
                   </MDTypography>
                   <Autocomplete
-                    id="free-solo-demo"
-                    freeSolo
+                    id="combo-box-demo"
                     options={name.map((option) => option.name)}
                     onChange={handleChange}
-                    renderInput={(params) => <TextField {...params} />}
-                    sx={{ width: "180px" }}
+                    renderInput={(params) => <TextField {...params} size="medium" />}
+                    // sx={{ width: "180px" }}
+                    sx={{ width: 250 }}
                   />
                 </Grid>
-                <Grid item xs={1}>
+                <Grid item xs={6} md={2}>
                   <MDBox
                     pt={4}
                     pb={3}
@@ -255,10 +272,7 @@ function AdminReport() {
                     justifyContent="end"
                     alignItems="center"
                   >
-                    <MDButton
-                      variant="gradient"
-                      color="success"
-                      type="submit" >
+                    <MDButton variant="gradient" color="success" type="submit">
                       &nbsp;Search
                     </MDButton>
                   </MDBox>
@@ -277,48 +291,48 @@ function AdminReport() {
             </MDBox>
           </MDBox>
         </Card>
-      
-          <MDBox pt={8}>
-            <Grid item xs={12}>
-              <Card>
-                <MDBox
-                  mx={2}
-                  mt={-3}
-                  py={3}
-                  px={2}
-                  variant="gradient"
-                  bgColor="info"
-                  borderRadius="lg"
-                  coloredShadow="info"
-                >
-                  <MDTypography variant="h6" color="white">
-                    Reports Table
-                  </MDTypography>
-                </MDBox>
-                <MDBox pt={3}>
-                  {/* <Datatable tableHead={mytableHead} dataSrc={mydataSrc} /> */}
-                  {/* <DataTable
+
+        <MDBox pt={8}>
+          <Grid item xs={12}>
+            <Card>
+              <MDBox
+                mx={2}
+                mt={-3}
+                py={3}
+                px={2}
+                variant="gradient"
+                bgColor="info"
+                borderRadius="lg"
+                coloredShadow="info"
+              >
+                <MDTypography variant="h6" color="white">
+                  Reports Table
+                </MDTypography>
+              </MDBox>
+              <MDBox pt={3}>
+                {/* <Datatable tableHead={mytableHead} dataSrc={mydataSrc} /> */}
+                {/* <DataTable
                   table={{ columns, rows }}
                   isSorted={false}
                   entriesPerPage={false}
                   showTotalEntries={false}
                   noEndBorder
                 /> */}
-                  <Box sx={{ height: 700, width: "100%" }}>
-                    <DataGrid
-                      rows={row}
-                      columns={columns}
-                      pageSize={10}
-                      rowsPerPageOptions={[10]}
-                      checkboxSelection
-                      disableSelectionOnClick
-                      components={{ Toolbar: GridToolbar }}
-                    />
-                  </Box>
-                </MDBox>
-              </Card>
-            </Grid>
-          </MDBox>
+                <Box sx={{ height: 700, width: "100%" }}>
+                  <DataGrid
+                    rows={row}
+                    columns={columns}
+                    pageSize={10}
+                    rowsPerPageOptions={[10]}
+                    checkboxSelection
+                    disableSelectionOnClick
+                    components={{ Toolbar: GridToolbar }}
+                  />
+                </Box>
+              </MDBox>
+            </Card>
+          </Grid>
+        </MDBox>
       </Grid>
       <Footer />
     </DashboardLayout>

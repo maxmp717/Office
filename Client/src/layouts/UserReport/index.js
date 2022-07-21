@@ -17,7 +17,9 @@ import Footer from "examples/Footer";
 import { useSelector } from "react-redux";
 import axios from "axios";
 import moment from "moment";
-import { useSelect } from "@mui/base";
+import TextField from "@mui/material/TextField";
+import Autocomplete from "@mui/material/Autocomplete";
+// import { useSelect } from "@mui/base";
 
 function Report() {
   // const { columns, rows } = authorsTableData();
@@ -29,6 +31,7 @@ function Report() {
   };
   const [values, setValues] = useState(initialValues);
   const [report, setReport] = useState([]);
+  const [teamList, setTeamList] = useState(null);
   const empId = useSelector((state) => state.auth.user.empId);
   const handleInputChange = (e) => {
     const { name, value } = e.target;
@@ -38,20 +41,20 @@ function Report() {
       [name]: value,
     });
   };
-
+  const handleTeamChange = (event, value) => setTeamList(value);
   const [show, setShow] = useState(false);
   const handleSubmit = (e) => {
     e.preventDefault();
     const userData = {
       startDate: values.startDate,
       endDate: values.endDate,
-      team: values.team,
+      team: teamList,
     };
     console.log(userData);
 
     axios
       .get(
-        `analyst/fetch/user-data/?sDate=${values.startDate}&eDate=${values.endDate}&empId=${empId}&team=${values.team}`
+        `analyst/fetch/user-data/?sDate=${values.startDate}&eDate=${values.endDate}&empId=${empId}&team=${teamList}`
       )
       .then((res) => {
         setReport(res.data);
@@ -61,18 +64,20 @@ function Report() {
 
   // tabel report
   const columns = [
-    { field: "id", headerName: "ID", width: 80 },
+    { field: "id", headerName: "ID", width: 80, flex: 1 },
     {
       field: "name",
       headerName: "Name",
       width: 150,
       editable: false,
+      flex: 1,
     },
     {
       field: "team",
       headerName: "Team",
       width: 150,
       editable: false,
+      flex: 1,
     },
     {
       field: "date",
@@ -80,6 +85,7 @@ function Report() {
       // type: 'date',
       width: 130,
       editable: false,
+      flex: 1,
     },
     {
       field: "TotalTime",
@@ -87,6 +93,7 @@ function Report() {
       // type: 'time',
       width: 150,
       editable: false,
+      flex: 1,
     },
     {
       field: "ActiveTime",
@@ -94,6 +101,7 @@ function Report() {
       // type: 'number',
       width: 150,
       editable: false,
+      flex: 1,
     },
     {
       field: "EntityTime",
@@ -101,6 +109,7 @@ function Report() {
       // type: 'number',
       width: 150,
       editable: false,
+      flex: 1,
     },
   ];
 
@@ -124,7 +133,31 @@ function Report() {
       })),
     [report]
   );
-
+  // Team List
+  const list = [
+    "Dumbledore",
+    "Gandalf",
+    "Honeydew_Image Classification",
+    "Longon",
+    "Mango_Autonomy",
+    "Mango_Obstacles",
+    "Mango_Soybeans",
+    "Neo Segmentation",
+    "Pomelo",
+    "Rambutan_Traffic Light",
+    "Rambutan_Traffic Sign",
+    "Snorlax_Vehicle",
+    "Venusaur",
+    "LIME",
+    "SNOMED",
+    "RX-NORM",
+    "Receipt Labeling",
+    "My Heritage Project",
+    "Dragon",
+    "SKY FFV",
+    "NALA",
+    "SWDP",
+  ];
   return (
     <DashboardLayout>
       <DashboardNavbar />
@@ -174,30 +207,14 @@ function Report() {
                   <MDTypography variant="h6" fontWeight="medium">
                     Team
                   </MDTypography>
-                  <div>
-                    <FormControl sx={{ minWidth: 180 }}>
-                      <Select
-                        native
-                        id="grouped-native-select"
-                        name="team"
-                        value={values.team}
-                        onChange={handleInputChange}
-                      >
-                        <option aria-label="None" />
-                        <optgroup label="CV">
-                          <option value="Dumbledore">Dumbledore</option>
-                          <option value="Annotell">Annotell</option>
-                          <option value="Lane">Lane</option>
-                          <option value="Pomelo">Pomelo</option>
-                        </optgroup>
-                        <optgroup label="NLP">
-                          <option value="Nala">Nala</option>
-                          <option value="Lime">Lime</option>
-                          <option value="Dragon">Dragon</option>
-                        </optgroup>
-                      </Select>
-                    </FormControl>
-                  </div>
+                  <Autocomplete
+                    disablePortal
+                    id="combo-box-demo"
+                    options={list}
+                    onChange={handleTeamChange}
+                    sx={{ width: 250 }}
+                    renderInput={(params) => <TextField {...params} />}
+                  />
                 </Grid>
                 <Grid item xs={3}>
                   <MDBox pt={3}>
