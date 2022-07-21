@@ -2,9 +2,13 @@ import axios from 'axios';
 import setAuthToken from 'utils/setAuthToken';
 import jwt_decode from 'jwt-decode';
 import {GET_ERRORS,SET_CURRENT_USER,USER_LOADING} from  './types';
+import 'react-toastify/dist/ReactToastify.min.css';
+import { toast} from 'react-toastify';
+
 
 export const registerUser = (userData) => dispatch =>{
     axios.post('user/register',userData)
+    .then(res=>toast.success('Your Account Created Successfully 👍'))
     .then(res=> window.location = '/authentication/sign-in')
     .catch(err=>dispatch(
         {
