@@ -215,7 +215,7 @@ function AdminReport() {
             <MDBox pt={6} px={4} display="flex" justifycontent="space-evenly" alignItems="center">
               <Grid container spacing={3}>
                 {/* <Grid item xs={12} md={4}> */}
-                <Grid item xs={6} md={2}>
+                <Grid item xs={3} md={2}>
                   <MDTypography variant="h6" fontWeight="medium">
                     Start Date
                   </MDTypography>
@@ -226,7 +226,7 @@ function AdminReport() {
                     onChange={handleInputChange}
                   />
                 </Grid>
-                <Grid item xs={6} md={2}>
+                <Grid item xs={3} md={2}>
                   <MDTypography variant="h6" fontWeight="medium">
                     End Date
                   </MDTypography>
@@ -237,7 +237,7 @@ function AdminReport() {
                     onChange={handleInputChange}
                   />
                 </Grid>
-                <Grid item xs={6} md={3}>
+                <Grid item xs={1} md={3}>
                   <MDTypography variant="h6" fontWeight="medium">
                     Team
                   </MDTypography>
@@ -246,11 +246,11 @@ function AdminReport() {
                     id="combo-box-demo"
                     options={list}
                     onChange={handleTeamChange}
-                    sx={{ width: 250 }}
+                    sx={{ width: 200 }}
                     renderInput={(params) => <TextField {...params} />}
                   />
                 </Grid>
-                <Grid item xs={6} md={2}>
+                <Grid item xs={1} md={2}>
                   <MDTypography variant="h6" fontWeight="medium">
                     Name
                   </MDTypography>
@@ -260,10 +260,10 @@ function AdminReport() {
                     onChange={handleChange}
                     renderInput={(params) => <TextField {...params} size="medium" />}
                     // sx={{ width: "180px" }}
-                    sx={{ width: 250 }}
+                    sx={{ width: 200 }}
                   />
                 </Grid>
-                <Grid item xs={6} md={2}>
+                <Grid item xs={1} md={2}>
                   <MDBox
                     pt={4}
                     pb={3}

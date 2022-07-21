@@ -64,7 +64,7 @@ function Report() {
 
   // tabel report
   const columns = [
-    { field: "id", headerName: "ID", width: 80, flex: 1 },
+    { field: "id", headerName: "ID", width: 80},
     {
       field: "name",
       headerName: "Name",
@@ -181,7 +181,7 @@ function Report() {
             </MDBox>
             <MDBox pt={6} px={4} display="flex" justifycontent="space-evenly" alignItems="center">
               <Grid container spacing={3}>
-                <Grid item xs={3}>
+                <Grid item xs={2} md={3}>
                   <MDTypography variant="h6" fontWeight="medium">
                     Start Date
                   </MDTypography>
@@ -192,7 +192,7 @@ function Report() {
                     onChange={handleInputChange}
                   />
                 </Grid>
-                <Grid item xs={3}>
+                <Grid item xs={2} md={3}>
                   <MDTypography variant="h6" fontWeight="medium">
                     End Date
                   </MDTypography>
@@ -203,7 +203,7 @@ function Report() {
                     onChange={handleInputChange}
                   />
                 </Grid>
-                <Grid item xs={3}>
+                <Grid item xs={2} md={3}>
                   <MDTypography variant="h6" fontWeight="medium">
                     Team
                   </MDTypography>
@@ -212,16 +212,19 @@ function Report() {
                     id="combo-box-demo"
                     options={list}
                     onChange={handleTeamChange}
-                    sx={{ width: 250 }}
+                    sx={{ width: 200 }}
                     renderInput={(params) => <TextField {...params} />}
                   />
                 </Grid>
-                <Grid item xs={3}>
-                  <MDBox pt={3}>
+                <Grid item xs={2} md={3}>
+                  <MDBox pt={4}>
                     <MDButton
                       variant="gradient"
                       color="success"
                       type="submit"
+                      display="flex"
+                      justifyContent="end"
+                      alignItems="center"
                       onClick={() => setShow(!show)}
                     >
                       &nbsp;Search
