@@ -181,7 +181,7 @@ function Report() {
             </MDBox>
             <MDBox pt={6} px={4} display="flex" justifycontent="space-evenly" alignItems="center">
               <Grid container spacing={3}>
-                <Grid item xs={3}>
+                <Grid item xs={3} md={2}>
                   <MDTypography variant="h6" fontWeight="medium">
                     Start Date
                   </MDTypography>
@@ -192,7 +192,7 @@ function Report() {
                     onChange={handleInputChange}
                   />
                 </Grid>
-                <Grid item xs={3}>
+                <Grid item xs={3} md={2}>
                   <MDTypography variant="h6" fontWeight="medium">
                     End Date
                   </MDTypography>
@@ -203,7 +203,7 @@ function Report() {
                     onChange={handleInputChange}
                   />
                 </Grid>
-                <Grid item xs={3}>
+                <Grid item xs={3} md={2}>
                   <MDTypography variant="h6" fontWeight="medium">
                     Team
                   </MDTypography>
@@ -212,11 +212,11 @@ function Report() {
                     id="combo-box-demo"
                     options={list}
                     onChange={handleTeamChange}
-                    sx={{ width: 250 }}
+                    sx={{ width: 200 }}
                     renderInput={(params) => <TextField {...params} />}
                   />
                 </Grid>
-                <Grid item xs={3}>
+                <Grid item xs={3} md={2}>
                   <MDBox pt={3}>
                     <MDButton
                       variant="gradient"
