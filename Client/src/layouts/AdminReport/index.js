@@ -42,6 +42,15 @@ function AdminReport() {
   };
   const handleChange = (event, value) => setEmpName(value);
   const handleTeamChange = (event, value) => setTeamList(value);
+
+  const allReport = (e) =>{
+    axios.get('analyst/')
+    .then((res)=>{
+      setReport(res.data);
+    })
+    .catch((err)=>console.log(err));
+  }
+
   const handleSubmit = (e) => {
     e.preventDefault();
     const userData = {
@@ -57,7 +66,14 @@ function AdminReport() {
     const name = empName;
     const  team  = teamList;
     console.log(name !== "");
-    if (name === null) {
+    if(name==null&&team==null){
+      axios.get('analyst/fetch/report/date/?sDate='+sDate+'&eDate='+eDate)
+      .then((res)=>{
+        setReport(res.data);
+      })
+      .catch(err=>console.log(err))
+    }
+     else if (name === null) {
       axios
         .get(`analyst/fetch/report/team/?sDate=${sDate}&eDate=${eDate}&team=${team}`)
         .then((res) => {
@@ -65,7 +81,7 @@ function AdminReport() {
           setReport(res.data);
         })
         .catch((err) => console.log(`Error:${err}`));
-    } else if (team === "") {
+    } else if (team === null) {
       axios
         .get(`analyst/fetch/report/user/?sDate=${sDate}&eDate=${eDate}&name=${name}`)
         .then((res) => {
@@ -283,7 +299,7 @@ function AdminReport() {
               <MDButton
                 variant="gradient"
                 color="error"
-                type="submit"
+                onClick={allReport}
                 // onClick={() => setShow(!show)}
               >
                 &nbsp;Get All Report
